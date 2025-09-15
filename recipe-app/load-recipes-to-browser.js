@@ -1,0 +1,229 @@
+
+// This script will load the imported recipes into browser localStorage
+// Run this in the browser console on localhost:3000
+
+const recipes = [
+  {
+    "id": "mfkaw8eal3w1v3um28",
+    "title": "Remove the loaf from the dutch oven and let it cool for at least 30 minutes before slicing, Rosemary + Olive Oil: 2 tbsp of both",
+    "ingredients": [
+      "keep kneading. If it's too sticky and you think you've added enough flour"
+    ],
+    "instructions": "let it sit for 5 minutes Rub olive oil in the bowl before putting the dough in to rise Cinnamon Raisin: 1 tsp cinnamon",
+    "cookTime": "you're good. If it does",
+    "category": "Other",
+    "tags": [
+      "take a little part and stretch it. If it doesn't break"
+    ],
+    "notes": "¼ cup raisins Honey: ¼ cup",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.705Z",
+    "updatedAt": "2025-09-14T23:02:48.705Z"
+  },
+  {
+    "id": "mfkaw8eftayz72cfn8",
+    "title": "Turn the heat of your non-stick pan down to low",
+    "ingredients": [
+      "mashing down the tomatoes until broken down and smooth. Add brown sugar"
+    ],
+    "instructions": "basil and season to taste",
+    "cookTime": "cook plum tomatoes for 10 mins",
+    "category": "Other",
+    "tags": [
+      "until it just starts to turn a golden brown. Add tin of plum tomatoes"
+    ],
+    "notes": "once sauce has thickened",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.711Z",
+    "updatedAt": "2025-09-14T23:02:48.711Z"
+  },
+  {
+    "id": "mfkaw8efisc0rpbj1q",
+    "title": "Meanwhile",
+    "ingredients": [
+      "garlic"
+    ],
+    "instructions": "cumin",
+    "cookTime": "mint leaves and olive oil to a food processor or blender and blitz until smooth. Add this mixture to a bowl with plain yoghurt",
+    "category": "Other",
+    "tags": [
+      "coriander"
+    ],
+    "notes": "garam masala",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.711Z",
+    "updatedAt": "2025-09-14T23:02:48.711Z"
+  },
+  {
+    "id": "mfkaw8eqp7ejrb95mu",
+    "title": "Sauce: buffalo sauce",
+    "ingredients": [
+      "garlic paste"
+    ],
+    "instructions": "pepper",
+    "cookTime": "worcestershire sauce",
+    "category": "Other",
+    "tags": [
+      "butter"
+    ],
+    "notes": "paprika",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.722Z",
+    "updatedAt": "2025-09-14T23:02:48.722Z"
+  },
+  {
+    "id": "mfkaw8eqybgro148zx",
+    "title": "General Tso's Chicken",
+    "ingredients": [
+      "¼"
+    ],
+    "instructions": "Heat",
+    "cookTime": "",
+    "category": "Lunch/Dinner",
+    "tags": [],
+    "notes": "Ide",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.722Z",
+    "updatedAt": "2025-09-14T23:02:48.722Z"
+  },
+  {
+    "id": "mfkaw8eqehg41foj6h7",
+    "title": "In one shallow dish",
+    "ingredients": [
+      "pepper"
+    ],
+    "instructions": "garlic powder",
+    "cookTime": "salt",
+    "category": "Other",
+    "tags": [
+      "grated parmesan cheese"
+    ],
+    "notes": "oregano",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.722Z",
+    "updatedAt": "2025-09-14T23:02:48.722Z"
+  },
+  {
+    "id": "mfkaw8eq5ous6swjkiu",
+    "title": "Make the herb seasoning: In a small bowl",
+    "ingredients": [
+      "thyme"
+    ],
+    "instructions": "salt",
+    "cookTime": "parsley",
+    "category": "Other",
+    "tags": [
+      "garlic"
+    ],
+    "notes": "pepper",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.722Z",
+    "updatedAt": "2025-09-14T23:02:48.722Z"
+  },
+  {
+    "id": "mfkaw8exteop8h0a46",
+    "title": "Add pasta",
+    "ingredients": [
+      "basil. Whatever you want bc it's your dish",
+      "Simple"
+    ],
+    "instructions": "easy",
+    "cookTime": "lemon zest",
+    "category": "Other",
+    "tags": [
+      "lemon juice if ya want"
+    ],
+    "notes": "doable",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.729Z",
+    "updatedAt": "2025-09-14T23:02:48.729Z"
+  },
+  {
+    "id": "mfkaw8ex0wpa78rqd9o",
+    "title": "1/3 c. Loosely Packed Fresh Cilantro Leaves,In the jar of a blender",
+    "ingredients": [
+      "hoisin"
+    ],
+    "instructions": "vinegar",
+    "cookTime": "tamari",
+    "category": "Other",
+    "tags": [
+      "garlic"
+    ],
+    "notes": "sesame oil",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.729Z",
+    "updatedAt": "2025-09-14T23:02:48.729Z"
+  },
+  {
+    "id": "mfkaw8ex49k8tni5qs6",
+    "title": "Coleslaw",
+    "ingredients": [
+      "brown sugar"
+    ],
+    "instructions": "bourbon",
+    "cookTime": "barbecue sauce",
+    "category": "Other",
+    "tags": [
+      "combine chicken breasts"
+    ],
+    "notes": "Italian dressing",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.729Z",
+    "updatedAt": "2025-09-14T23:02:48.729Z"
+  },
+  {
+    "id": "mfkaw8exi9s3teqajzd",
+    "title": "Sour Cream,Season chicken breasts with salt and pepper and place on the bottom of the slow cooker. Then add cumin",
+    "ingredients": [
+      "diced garlic"
+    ],
+    "instructions": "corn",
+    "cookTime": "and red pepper flakes on top of the chicken along with sliced onions",
+    "category": "Other",
+    "tags": [
+      "chili powder"
+    ],
+    "notes": "and black beans. Pour one 10 oz can of enchilada sauce on top of everything. Cover with the lid and cook on low heat for 6-8 hours or on high heat for 3-4 hours",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.729Z",
+    "updatedAt": "2025-09-14T23:02:48.729Z"
+  },
+  {
+    "id": "mfkaw8ex4e61hygb8ln",
+    "title": "To the slow cooker",
+    "ingredients": [
+      "chicken stock"
+    ],
+    "instructions": "dijon mustard",
+    "cookTime": "lemon juice",
+    "category": "Other",
+    "tags": [
+      "½ cup butter"
+    ],
+    "notes": "minced garlic",
+    "rating": 0,
+    "isFavorite": false,
+    "createdAt": "2025-09-14T23:02:48.729Z",
+    "updatedAt": "2025-09-14T23:02:48.729Z"
+  }
+];
+
+try {
+  localStorage.setItem('myRecipesData', JSON.stringify(recipes));
+  console.log('✅ Successfully loaded 12 recipes into browser localStorage');
+  console.log('🔄 Refresh the page to see your recipes');
+} catch (error) {
+  console.error('❌ Error saving to localStorage:', error);
+}

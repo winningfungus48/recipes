@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Load Recipes into Recipe App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .button { background: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; margin: 10px 5px; }
+        .button:hover { background: #059669; }
+        .success { color: #10b981; font-weight: bold; }
+        .error { color: #dc2626; font-weight: bold; }
+        .info { background: #f3f4f6; padding: 15px; border-radius: 6px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍳 Load Recipes into Recipe App</h1>
+        
+        <div class="info">
+            <p><strong>Instructions:</strong></p>
+            <ol>
+                <li>Make sure your Recipe App is running at <code>http://localhost:3000</code></li>
+                <li>Click the button below to load 12 imported recipes</li>
+                <li>Go to your Recipe App and refresh the page</li>
+            </ol>
+        </div>
+
+        <button class="button" onclick="loadRecipes()">Load 12 Recipes into App</button>
+        <button class="button" onclick="clearRecipes()">Clear All Recipes</button>
+        
+        <div id="result"></div>
+        
+        <div id="recipeList" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        const recipes = [
+            {
+                "id": "mfkaw8eal3w1v3um28",
+                "title": "Remove the loaf from the dutch oven and let it cool for at least 30 minutes before slicing, Rosemary + Olive Oil: 2 tbsp of both",
+                "ingredients": ["keep kneading. If it's too sticky and you think you've added enough flour"],
+                "instructions": "let it sit for 5 minutes Rub olive oil in the bowl before putting the dough in to rise Cinnamon Raisin: 1 tsp cinnamon",
+                "cookTime": "you're good. If it does",
+                "category": "Other",
+                "tags": ["take a little part and stretch it. If it doesn't break"],
+                "notes": "¼ cup raisins Honey: ¼ cup",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.705Z",
+                "updatedAt": "2025-09-14T23:02:48.705Z"
+            },
+            {
+                "id": "mfkaw8eftayz72cfn8",
+                "title": "Turn the heat of your non-stick pan down to low",
+                "ingredients": ["mashing down the tomatoes until broken down and smooth. Add brown sugar"],
+                "instructions": "basil and season to taste",
+                "cookTime": "cook plum tomatoes for 10 mins",
+                "category": "Other",
+                "tags": ["until it just starts to turn a golden brown. Add tin of plum tomatoes"],
+                "notes": "once sauce has thickened",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.711Z",
+                "updatedAt": "2025-09-14T23:02:48.711Z"
+            },
+            {
+                "id": "mfkaw8efisc0rpbj1q",
+                "title": "Meanwhile",
+                "ingredients": ["garlic"],
+                "instructions": "cumin",
+                "cookTime": "mint leaves and olive oil to a food processor or blender and blitz until smooth. Add this mixture to a bowl with plain yoghurt",
+                "category": "Other",
+                "tags": ["coriander"],
+                "notes": "garam masala",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.711Z",
+                "updatedAt": "2025-09-14T23:02:48.711Z"
+            },
+            {
+                "id": "mfkaw8eqp7ejrb95mu",
+                "title": "Sauce: buffalo sauce",
+                "ingredients": ["garlic paste"],
+                "instructions": "pepper",
+                "cookTime": "worcestershire sauce",
+                "category": "Other",
+                "tags": ["butter"],
+                "notes": "paprika",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.722Z",
+                "updatedAt": "2025-09-14T23:02:48.722Z"
+            },
+            {
+                "id": "mfkaw8eqybgro148zx",
+                "title": "General Tso's Chicken",
+                "ingredients": ["¼"],
+                "instructions": "Heat",
+                "cookTime": "",
+                "category": "Lunch/Dinner",
+                "tags": [],
+                "notes": "Ide",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.722Z",
+                "updatedAt": "2025-09-14T23:02:48.722Z"
+            },
+            {
+                "id": "mfkaw8eqehg41foj6h7",
+                "title": "In one shallow dish",
+                "ingredients": ["pepper"],
+                "instructions": "garlic powder",
+                "cookTime": "salt",
+                "category": "Other",
+                "tags": ["grated parmesan cheese"],
+                "notes": "oregano",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.722Z",
+                "updatedAt": "2025-09-14T23:02:48.722Z"
+            },
+            {
+                "id": "mfkaw8eq5ous6swjkiu",
+                "title": "Make the herb seasoning: In a small bowl",
+                "ingredients": ["thyme"],
+                "instructions": "salt",
+                "cookTime": "parsley",
+                "category": "Other",
+                "tags": ["garlic"],
+                "notes": "pepper",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.722Z",
+                "updatedAt": "2025-09-14T23:02:48.722Z"
+            },
+            {
+                "id": "mfkaw8exteop8h0a46",
+                "title": "Add pasta",
+                "ingredients": ["basil. Whatever you want bc it's your dish", "Simple"],
+                "instructions": "easy",
+                "cookTime": "lemon zest",
+                "category": "Other",
+                "tags": ["lemon juice if ya want"],
+                "notes": "doable",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.729Z",
+                "updatedAt": "2025-09-14T23:02:48.729Z"
+            },
+            {
+                "id": "mfkaw8ex0wpa78rqd9o",
+                "title": "1/3 c. Loosely Packed Fresh Cilantro Leaves,In the jar of a blender",
+                "ingredients": ["hoisin"],
+                "instructions": "vinegar",
+                "cookTime": "tamari",
+                "category": "Other",
+                "tags": ["garlic"],
+                "notes": "sesame oil",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.729Z",
+                "updatedAt": "2025-09-14T23:02:48.729Z"
+            },
+            {
+                "id": "mfkaw8ex49k8tni5qs6",
+                "title": "Coleslaw",
+                "ingredients": ["brown sugar"],
+                "instructions": "bourbon",
+                "cookTime": "barbecue sauce",
+                "category": "Other",
+                "tags": ["combine chicken breasts"],
+                "notes": "Italian dressing",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.729Z",
+                "updatedAt": "2025-09-14T23:02:48.729Z"
+            },
+            {
+                "id": "mfkaw8exi9s3teqajzd",
+                "title": "Sour Cream,Season chicken breasts with salt and pepper and place on the bottom of the slow cooker. Then add cumin",
+                "ingredients": ["diced garlic"],
+                "instructions": "corn",
+                "cookTime": "and red pepper flakes on top of the chicken along with sliced onions",
+                "category": "Other",
+                "tags": ["chili powder"],
+                "notes": "and black beans. Pour one 10 oz can of enchilada sauce on top of everything. Cover with the lid and cook on low heat for 6-8 hours or on high heat for 3-4 hours",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.729Z",
+                "updatedAt": "2025-09-14T23:02:48.729Z"
+            },
+            {
+                "id": "mfkaw8ex4e61hygb8ln",
+                "title": "To the slow cooker",
+                "ingredients": ["chicken stock"],
+                "instructions": "dijon mustard",
+                "cookTime": "lemon juice",
+                "category": "Other",
+                "tags": ["½ cup butter"],
+                "notes": "minced garlic",
+                "rating": 0,
+                "isFavorite": false,
+                "createdAt": "2025-09-14T23:02:48.729Z",
+                "updatedAt": "2025-09-14T23:02:48.729Z"
+            }
+        ];
+
+        function loadRecipes() {
+            try {
+                localStorage.setItem('myRecipesData', JSON.stringify(recipes));
+                document.getElementById('result').innerHTML = 
+                    '<div class="success">✅ Successfully loaded ' + recipes.length + ' recipes into browser localStorage!</div>';
+                
+                showRecipeList();
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    '<div class="error">❌ Error saving to localStorage: ' + error.message + '</div>';
+            }
+        }
+
+        function clearRecipes() {
+            try {
+                localStorage.removeItem('myRecipesData');
+                document.getElementById('result').innerHTML = 
+                    '<div class="success">✅ Cleared all recipes from localStorage</div>';
+                document.getElementById('recipeList').innerHTML = '';
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    '<div class="error">❌ Error clearing localStorage: ' + error.message + '</div>';
+            }
+        }
+
+        function showRecipeList() {
+            const recipeList = document.getElementById('recipeList');
+            let html = '<h3>📋 Loaded Recipes:</h3><ul>';
+            recipes.forEach((recipe, index) => {
+                html += `<li><strong>${recipe.title}</strong> (${recipe.category})</li>`;
+            });
+            html += '</ul>';
+            recipeList.innerHTML = html;
+        }
+
+        // Show current recipes on page load
+        window.onload = function() {
+            const stored = localStorage.getItem('myRecipesData');
+            if (stored) {
+                const currentRecipes = JSON.parse(stored);
+                document.getElementById('result').innerHTML = 
+                    '<div class="success">📚 Currently ' + currentRecipes.length + ' recipes in localStorage</div>';
+                showRecipeList();
+            }
+        };
+    </script>
+</body>
+</html>

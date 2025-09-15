@@ -1,0 +1,17 @@
+{
+  "processed": 148,
+  "added": 148,
+  "duplicates": 1,
+  "errors": 1,
+  "touchedFiles": [
+    "appetizers_full_export (1).csv",
+    "archived_recipes (1).csv",
+    "drinks_recipes (1).csv",
+    "meals_breakfast_recipes (1).csv",
+    "meals_lunch_dinner_recipes (1).csv",
+    "remaining_recipe_sections (1).csv"
+  ],
+  "archivePath": "C:\\Dev\\recipes\\recipe-app\\data\\master\\archive\\recipes_master_2025-09-15T01-38-27.csv",
+  "duration": 80,
+  "timestamp": "2025-09-15T01:38:27.396Z"
+}

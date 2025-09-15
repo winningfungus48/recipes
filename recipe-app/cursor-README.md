@@ -17,6 +17,7 @@ A personal recipe website where I can:
 - Manually enter, import, and organize recipes
 - View them with clean filters, search, and rating
 - Store everything locally for now
+- Extend features like AI parsing, grocery list connection, and PWA in later phases
 
 ---
 

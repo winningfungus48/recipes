@@ -14,7 +14,7 @@ function App() {
   return (
     <ErrorBoundary>
       <RecipesProvider>
-        <Router basename="/recipes">
+        <Router basename="/">
           <div className="min-h-screen bg-cream-50">
             <Routes>
               <Route path="/" element={<LandingPage />} />

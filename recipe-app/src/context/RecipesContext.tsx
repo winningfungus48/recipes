@@ -89,7 +89,15 @@ const recipesReducer = (state: RecipesState, action: RecipesAction): RecipesStat
           : recipe
       )
       saveRecipes(toggledRecipes)
-      return { ...state, recipes: toggledRecipes }
+      
+      // Update filteredRecipes to reflect the change
+      const updatedFilteredRecipes = state.filteredRecipes.map(recipe =>
+        recipe.id === action.payload 
+          ? { ...recipe, isFavorite: !recipe.isFavorite }
+          : recipe
+      )
+      
+      return { ...state, recipes: toggledRecipes, filteredRecipes: updatedFilteredRecipes }
     
     case 'BULK_ADD_RECIPES':
       const allRecipes = [...state.recipes, ...action.payload]

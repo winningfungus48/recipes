@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Clock, Edit, Trash2, ArrowLeft } from 'lucide-react'
+import { Clock, Edit, Trash2, ArrowLeft, Heart } from 'lucide-react'
 import { Recipe } from '../types/recipe'
 import { CATEGORY_ICONS, CATEGORY_COLORS } from '../data/categories'
 import { getTagColor } from '../data/tags'
@@ -10,9 +10,10 @@ import StarRating from './StarRating'
 interface RecipeDetailProps {
   recipe: Recipe
   onDelete: (id: string) => void
+  onToggleFavorite?: (id: string) => void
 }
 
-const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete }) => {
+const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleFavorite }) => {
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this recipe?')) {
       onDelete(recipe.id)
@@ -43,9 +44,20 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete }) => {
         <div className="mb-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {recipe.title}
-              </h1>
+              <div className="flex items-center space-x-3 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {recipe.title}
+                </h1>
+                
+                {onToggleFavorite && (
+                  <button
+                    onClick={() => onToggleFavorite(recipe.id)}
+                    className="text-gray-400 hover:text-red-500 transition-colors"
+                  >
+                    <Heart className={`h-6 w-6 ${recipe.isFavorite ? 'text-red-500 fill-current' : ''}`} />
+                  </button>
+                )}
+              </div>
               
               <div className="flex items-center space-x-4 mb-4">
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${CATEGORY_COLORS[recipe.category]}`}>

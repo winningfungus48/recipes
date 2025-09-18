@@ -7,7 +7,7 @@ import RecipeDetail from '../components/RecipeDetail'
 const RecipeDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { getRecipeById, deleteRecipe } = useRecipes()
+  const { getRecipeById, deleteRecipe, toggleFavorite } = useRecipes()
 
   const recipe = id ? getRecipeById(id) : undefined
 
@@ -51,6 +51,7 @@ const RecipeDetailPage: React.FC = () => {
         <RecipeDetail
           recipe={recipe}
           onDelete={handleDelete}
+          onToggleFavorite={toggleFavorite}
         />
       </div>
     </div>

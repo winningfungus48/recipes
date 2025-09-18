@@ -32,7 +32,7 @@ exclude:
 include:
   - "index.html"
   - "404.html"
-  - "dist/"
+  - "assets/"
   - "docs/"
   - "*.yml"
   - "*.yaml"

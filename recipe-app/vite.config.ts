@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/recipes/', // GitHub Pages base URL (repository name)
   server: {
     port: 3000,
     host: true,
@@ -17,6 +18,7 @@ export default defineConfig({
     }
   },
   build: {
+    outDir: '../dist', // Build to root dist directory for GitHub Pages
     target: 'esnext',
     minify: 'esbuild',
     sourcemap: false,

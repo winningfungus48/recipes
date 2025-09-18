@@ -1,9 +1,10 @@
 # Jekyll Configuration for GitHub Pages
-# This file configures Jekyll to properly build the documentation site
+# This file configures Jekyll to serve the React app as the main site
+# Documentation will be available at /docs/ when moved to subdirectory
 
 # Site settings
-title: "Recipe App Documentation"
-description: "Comprehensive documentation for the Recipe App project"
+title: "Recipe App"
+description: "A personal recipe organizer website built with React and Vite"
 baseurl: "" # Leave empty for GitHub Pages
 url: "" # Leave empty for GitHub Pages
 
@@ -18,7 +19,6 @@ exclude:
   - node_modules
   - vendor
   - recipe-app/node_modules
-  - recipe-app/dist
   - recipe-app/src
   - recipe-app/public
   - recipe-app/scripts
@@ -28,18 +28,21 @@ exclude:
   - ".DS_Store"
   - "Thumbs.db"
 
-# Include only necessary files
+# Include React app files and necessary assets
 include:
-  - "*.md"
+  - "index.html"
+  - "404.html"
+  - "dist/"
+  - "docs/"
   - "*.yml"
   - "*.yaml"
   - "*.json"
 
-# Collections (if needed for future documentation organization)
+# Collections for documentation (when moved to subdirectory)
 collections:
   docs:
     output: true
-    permalink: /:path/
+    permalink: /docs/:path/
 
 # Plugins
 plugins:

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react'
 import { Recipe, FilterOptions, ViewMode } from '../types/recipe'
-import { saveRecipes, createRecipe, updateRecipe, loadRecipesWithMigration, searchRecipe } from '../utils/storage'
+import { saveRecipes, createRecipe, updateRecipe, loadRecipesWithMigration, searchRecipe, saveViewMode, loadViewMode } from '../utils/storage'
 
 // Utility function to parse time strings to minutes
 const parseTime = (timeStr: string): number => {
@@ -32,6 +32,7 @@ type RecipesAction =
   | { type: 'BULK_ADD_RECIPES'; payload: Recipe[] }
   | { type: 'SET_FILTERS'; payload: Partial<FilterOptions> }
   | { type: 'SET_VIEW_MODE'; payload: ViewMode }
+  | { type: 'LOAD_VIEW_MODE' }
   | { type: 'APPLY_FILTERS' }
 
 const initialState: RecipesState = {
@@ -49,7 +50,7 @@ const initialState: RecipesState = {
     sortBy: 'createdAt',
     sortOrder: 'desc'
   },
-  viewMode: { type: 'grid' },
+  viewMode: { type: 'list' },
   loading: false,
   error: null
 }
@@ -108,7 +109,11 @@ const recipesReducer = (state: RecipesState, action: RecipesAction): RecipesStat
       return { ...state, filters: { ...state.filters, ...action.payload } }
     
     case 'SET_VIEW_MODE':
+      saveViewMode(action.payload)
       return { ...state, viewMode: action.payload }
+    
+    case 'LOAD_VIEW_MODE':
+      return { ...state, viewMode: loadViewMode() }
     
     case 'APPLY_FILTERS':
       let filtered = [...state.recipes]
@@ -211,11 +216,14 @@ export const RecipesProvider: React.FC<{ children: ReactNode }> = ({ children })
   const [state, dispatch] = useReducer(recipesReducer, initialState)
 
   useEffect(() => {
-    const loadInitialRecipes = async () => {
+    const loadInitialData = async () => {
       dispatch({ type: 'SET_LOADING', payload: true })
       try {
         const recipes = loadRecipesWithMigration()
         dispatch({ type: 'LOAD_RECIPES', payload: recipes })
+        
+        // Load saved view mode preference
+        dispatch({ type: 'LOAD_VIEW_MODE' })
       } catch (error) {
         console.error('Failed to load recipes:', error)
         dispatch({ type: 'SET_ERROR', payload: 'Failed to load recipes' })
@@ -226,7 +234,7 @@ export const RecipesProvider: React.FC<{ children: ReactNode }> = ({ children })
       }
     }
 
-    loadInitialRecipes()
+    loadInitialData()
   }, [])
 
   useEffect(() => {

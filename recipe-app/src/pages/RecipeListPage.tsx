@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import FilterPanel from '../components/FilterPanel'
 import LayoutToggle from '../components/LayoutToggle'
 import RecipeCard from '../components/RecipeCard'
+import { Search } from 'lucide-react'
 
 const RecipeListPage: React.FC = () => {
   const { state, setFilters, setViewMode, clearFilters, toggleFavorite } = useRecipes()
@@ -47,6 +48,20 @@ const RecipeListPage: React.FC = () => {
             <LayoutToggle
               viewMode={state.viewMode}
               onViewModeChange={setViewMode}
+            />
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="mb-6">
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              value={state.filters.search}
+              onChange={(e) => setFilters({ search: e.target.value })}
+              placeholder="Search by title, ingredients, or tags..."
+              className="input-field pl-10 w-full"
             />
           </div>
         </div>

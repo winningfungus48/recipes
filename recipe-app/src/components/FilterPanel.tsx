@@ -17,9 +17,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 }) => {
   const [showMobileFilters, setShowMobileFilters] = useState(false)
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onFiltersChange({ search: e.target.value })
-  }
 
   const handleCategoryChange = (category: string) => {
     onFiltersChange({ category: category as FilterOptions['category'] })
@@ -42,7 +39,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
     })
   }
 
-  const hasActiveFilters = filters.search || filters.category !== 'All' || filters.tags.length > 0 || 
+  const hasActiveFilters = filters.category !== 'All' || filters.tags.length > 0 || 
     filters.difficulty !== 'All' || filters.rating > 0 || filters.hasImage || filters.isFavorite || filters.recentlyAdded
 
   return (
@@ -59,23 +56,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       </div>
 
       <div className={`space-y-4 ${showMobileFilters ? 'block' : 'hidden md:block'}`}>
-        {/* Search */}
-        <div>
-          <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
-            Search Recipes
-          </label>
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              id="search"
-              value={filters.search}
-              onChange={handleSearchChange}
-              placeholder="Search by title, ingredients, or tags..."
-              className="input-field pl-10"
-            />
-          </div>
-        </div>
 
         {/* Category Filter */}
         <div>

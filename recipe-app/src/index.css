@@ -25,6 +25,14 @@
     @apply border border-sage-300 hover:bg-sage-50 text-sage-700 px-4 py-2 rounded-lg font-medium transition-colors duration-200;
   }
   
+  .btn-outline-sm {
+    @apply border border-sage-300 hover:bg-sage-50 text-sage-700 px-2 py-1 rounded-md text-sm font-medium transition-colors duration-200;
+  }
+  
+  .btn-secondary-sm {
+    @apply bg-wood-200 hover:bg-wood-300 text-wood-800 px-2 py-1 rounded-md text-sm font-medium transition-colors duration-200;
+  }
+  
   .card {
     @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
   }

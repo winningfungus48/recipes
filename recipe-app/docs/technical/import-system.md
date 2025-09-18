@@ -1,6 +1,10 @@
-# Data Import System
+# 🔄 Data Import System
 
-## Overview
+This document describes the comprehensive data import system for the recipe app, including CSV/JSON processing, validation, and error handling.
+
+---
+
+## 📋 **Overview**
 
 The recipe app uses a master CSV file as the single source of truth for all recipe data. This system allows importing from multiple CSV files while maintaining data integrity and providing comprehensive audit trails.
 

@@ -1,6 +1,7 @@
 import { Recipe, RecipeSection, hasLegacyFormat, hasSections } from '../types/recipe'
 
 const STORAGE_KEY = 'myRecipesData'
+const VIEW_MODE_KEY = 'recipeViewMode'
 
 export const saveRecipes = (recipes: Recipe[]): void => {
   try {
@@ -309,4 +310,39 @@ export const getSectionLabelValidationError = (
   }
   
   return null
+}
+
+/**
+ * Saves view mode preference to localStorage
+ */
+export const saveViewMode = (viewMode: ViewMode): void => {
+  try {
+    localStorage.setItem(VIEW_MODE_KEY, JSON.stringify(viewMode))
+  } catch (error) {
+    console.error('Failed to save view mode to localStorage:', error)
+  }
+}
+
+/**
+ * Loads view mode preference from localStorage
+ * Returns default list view if no preference is saved
+ */
+export const loadViewMode = (): ViewMode => {
+  try {
+    const stored = localStorage.getItem(VIEW_MODE_KEY)
+    if (!stored) return { type: 'list' }
+    
+    const parsed = JSON.parse(stored)
+    
+    // Validate that parsed data is a valid ViewMode
+    if (parsed && typeof parsed === 'object' && parsed.type && 
+        (parsed.type === 'grid' || parsed.type === 'list')) {
+      return parsed
+    }
+    
+    return { type: 'list' }
+  } catch (error) {
+    console.error('Failed to load view mode from localStorage:', error)
+    return { type: 'list' }
+  }
 }

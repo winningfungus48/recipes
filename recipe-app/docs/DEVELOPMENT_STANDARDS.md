@@ -1,6 +1,6 @@
-# 🎯 Cursor Requirements Standards
+# 🎯 Development Standards & Requirements
 
-This document defines the development standards and workflow requirements for the recipe app project.
+This document defines the comprehensive development standards, workflow requirements, and coding guidelines for the Recipe App project.
 
 ---
 
@@ -12,7 +12,7 @@ When beginning a new phase or given a new task, follow this **exact sequence**:
 2. **❓ Ask Clarifying Questions**: Identify any ambiguities or missing details
 3. **📝 Process Answers**: Incorporate clarifications into the implementation plan
 4. **📋 Propose Modular Tasks**: Break down work into specific, manageable tasks
-5. **✅ Complete Each Task**: Implement one task at a time with full completion. 
+5. **✅ Complete Each Task**: Implement one task at a time with full completion
 6. **🧪 Regression Test**: Test changed areas and ensure no breaking changes
 7. **📊 Report Completion**: Provide status update and await approval before starting the next task
 
@@ -63,6 +63,12 @@ When beginning a new phase or given a new task, follow this **exact sequence**:
 - Ensure accessibility compliance (ARIA labels, keyboard navigation)
 - Validate responsive design across different screen sizes
 
+### **Development Workflow**
+- Break down complex features into smaller, manageable tasks
+- Implement features incrementally with working states at each step
+- Use semantic commit messages and clear PR descriptions
+- Plan for future scalability and feature extensions
+
 ---
 
 ## 📋 **Task Management & Phase Breakdown**
@@ -82,7 +88,7 @@ When beginning a new phase or given a new task, follow this **exact sequence**:
 ### **Phase Implementation Strategy**
 
 **Before Starting Any Phase:**
-1. **Read Phase Documentation**: Thoroughly review the phase requirements in `docs/initial-release-phases.md`
+1. **Read Phase Documentation**: Thoroughly review the phase requirements in `docs/phases/`
 2. **Create Task List**: Break down the phase into 3-5 specific, actionable tasks
 3. **Identify Dependencies**: Map out which tasks depend on others
 4. **Set Success Criteria**: Define clear completion criteria for each task
@@ -135,6 +141,50 @@ When reporting task completion, include:
 
 ---
 
+## 🎨 **Design Standards**
+
+### **UI/UX Guidelines**
+- **Minimalist and modern** design approach
+- **Kitchen-inspired color palette**: sage green, wood brown, off-white
+- **Rounded corners**, clean forms, and toggles
+- **Kitchen-themed but minimal** icons (no overload)
+- **Responsive design** for all screen sizes
+- **Accessibility compliance** with ARIA labels and keyboard navigation
+
+### **Component Standards**
+- **Modular components** that can scale across phases
+- **Consistent naming conventions** across the entire codebase
+- **Proper prop interfaces** with TypeScript
+- **Reusable patterns** for similar functionality
+- **Clean separation of concerns** between components
+
+---
+
+## 🔧 **Technical Standards**
+
+### **Project Architecture**
+- **Modular components** in `src/components/`
+- **Context management** in `src/context/`
+- **Page components** in `src/pages/`
+- **Utility functions** in `src/utils/`
+- **Type definitions** in `src/types/`
+
+### **Data Management**
+- **LocalStorage** for data persistence (Phase 1-2)
+- **No backend dependency** for Phase 1
+- **Scraped recipes** should be editable before saving
+- **Data validation** before storage
+- **Error handling** for data operations
+
+### **Code Organization**
+- **Functional components** with React hooks
+- **TypeScript** for type safety
+- **Consistent file naming** (PascalCase for components, camelCase for utilities)
+- **Proper imports** and exports
+- **Clean code structure** with logical grouping
+
+---
+
 ## ✳️ **Project-Specific Reminders**
 
 - Data is stored locally in browser for now (LocalStorage)
@@ -143,3 +193,32 @@ When reporting task completion, include:
 - Components should be modular and reusable across phases
 - Follow kitchen-inspired design (sage green, wood brown, off-white)
 - Maintain minimalist and modern UI approach
+- Always maintain a working application state
+- Test thoroughly before marking tasks complete
+
+---
+
+## 🚀 **Quick Reference**
+
+### **Essential Commands**
+- **Start Development**: `npm run dev` (from `recipe-app/` directory)
+- **Type Check**: `npx tsc --noEmit`
+- **Build**: `npm run build`
+
+### **Key Directories**
+- **Source Code**: `src/`
+- **Documentation**: `docs/`
+- **Phase Docs**: `docs/phases/`
+- **Technical Docs**: `docs/technical/`
+
+### **Important Files**
+- **Main App**: `src/App.tsx`
+- **Recipe Context**: `src/context/RecipesContext.tsx`
+- **Recipe Types**: `src/types/recipe.ts`
+- **Storage Utils**: `src/utils/storage.ts`
+
+---
+
+*This document serves as the single source of truth for all development standards and requirements.*
+*Last Updated: 2025-01-15*
+*Version: 1.0*

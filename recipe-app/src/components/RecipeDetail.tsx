@@ -79,17 +79,17 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleF
             <div className="flex space-x-2">
               <Link
                 to={`/recipes/${recipe.id}/edit`}
-                className="btn-outline flex items-center space-x-2"
+                className="btn-outline-sm flex items-center space-x-1"
               >
-                <Edit className="h-4 w-4" />
+                <Edit className="h-3 w-3" />
                 <span>Edit</span>
               </Link>
               
               <button
                 onClick={handleDelete}
-                className="btn-secondary text-red-600 hover:text-red-800 hover:bg-red-50 flex items-center space-x-2"
+                className="btn-secondary-sm text-red-600 hover:text-red-800 hover:bg-red-50 flex items-center space-x-1"
               >
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="h-3 w-3" />
                 <span>Delete</span>
               </button>
             </div>

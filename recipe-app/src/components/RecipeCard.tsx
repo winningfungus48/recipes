@@ -45,9 +45,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, viewMode, onToggleFavor
                   </Link>
                   
                   <div className="flex items-center space-x-2 ml-4">
-                    {recipe.isFavorite && (
-                      <Heart className="h-4 w-4 text-red-500 fill-current" />
-                    )}
                     {onToggleFavorite && (
                       <button
                         onClick={(e) => {

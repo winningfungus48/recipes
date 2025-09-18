@@ -1,0 +1,59 @@
+# Jekyll Configuration for GitHub Pages
+# This file configures Jekyll to properly build the documentation site
+
+# Site settings
+title: "Recipe App Documentation"
+description: "Comprehensive documentation for the Recipe App project"
+baseurl: "" # Leave empty for GitHub Pages
+url: "" # Leave empty for GitHub Pages
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: jekyll-theme-primer
+
+# Exclude directories and files from Jekyll processing
+# This prevents Liquid syntax errors in node_modules and other build artifacts
+exclude:
+  - node_modules
+  - vendor
+  - recipe-app/node_modules
+  - recipe-app/dist
+  - recipe-app/src
+  - recipe-app/public
+  - recipe-app/scripts
+  - recipe-app/data
+  - "*.log"
+  - "*.tmp"
+  - ".DS_Store"
+  - "Thumbs.db"
+
+# Include only necessary files
+include:
+  - "*.md"
+  - "*.yml"
+  - "*.yaml"
+  - "*.json"
+
+# Collections (if needed for future documentation organization)
+collections:
+  docs:
+    output: true
+    permalink: /:path/
+
+# Plugins
+plugins:
+  - jekyll-github-metadata
+  - jekyll-seo-tag
+  - jekyll-coffeescript
+  - jekyll-commonmark-ghpages
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+
+# GitHub Pages specific settings
+github: [metadata]

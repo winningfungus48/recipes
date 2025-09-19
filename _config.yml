@@ -1,62 +1,35 @@
-# Jekyll Configuration for GitHub Pages
-# This file configures Jekyll to serve the React app as the main site
-# Documentation will be available at /docs/ when moved to subdirectory
+﻿# Minimal Jekyll Configuration for GitHub Pages
+# Optimized for serving React app with static assets
 
 # Site settings
 title: "Recipe App"
 description: "A personal recipe organizer website built with React and Vite"
-baseurl: "" # Leave empty for GitHub Pages
-url: "" # Leave empty for GitHub Pages
+baseurl: ""
+url: ""
 
-# Build settings
-markdown: kramdown
-highlighter: rouge
-theme: jekyll-theme-primer
-
-# Exclude directories and files from Jekyll processing
-# This prevents Liquid syntax errors in node_modules and other build artifacts
+# Exclude everything except what we need
 exclude:
   - node_modules
-  - vendor
-  - recipe-app/node_modules
-  - recipe-app/src
-  - recipe-app/public
-  - recipe-app/scripts
-  - recipe-app/data
+  - recipe-app
+  - dist
   - "*.log"
   - "*.tmp"
   - ".DS_Store"
   - "Thumbs.db"
 
-# Include React app files and necessary assets
+# Include only necessary files
 include:
   - "index.html"
   - "404.html"
   - "assets/"
   - "docs/"
-  - "*.yml"
-  - "*.yaml"
-  - "*.json"
+  - "vite.svg"
 
-# Collections for documentation (when moved to subdirectory)
-collections:
-  docs:
-    output: true
-    permalink: /docs/:path/
+# Disable Jekyll processing for static assets
+keep_files:
+  - assets/
+  - vite.svg
 
-# Plugins
+# Minimal plugins
 plugins:
   - jekyll-github-metadata
-  - jekyll-seo-tag
-  - jekyll-coffeescript
-  - jekyll-commonmark-ghpages
-  - jekyll-gist
-  - jekyll-paginate
-  - jekyll-relative-links
-  - jekyll-optional-front-matter
-  - jekyll-readme-index
-  - jekyll-default-layout
-  - jekyll-titles-from-headings
-
-# GitHub Pages specific settings
-github: [metadata]

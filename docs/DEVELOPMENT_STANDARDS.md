@@ -217,6 +217,10 @@ When reporting task completion, include:
 - **Recipe Types**: `src/types/recipe.ts`
 - **Storage Utils**: `src/utils/storage.ts`
 
+
+
+When you finish reading this document, reply in the chat "Ready" only.
+
 ---
 
 *This document serves as the single source of truth for all development standards and requirements.*

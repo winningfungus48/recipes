@@ -1,4 +1,5 @@
-# 📚 Recipe App Documentation Hub
+# 📚 Recipe App 
+Documentation Hub
 
 Welcome to the comprehensive documentation for the Recipe App project. This hub provides quick access to all project documentation, development standards, and implementation guides.
 
@@ -8,6 +9,7 @@ Welcome to the comprehensive documentation for the Recipe App project. This hub 
 
 ### **Development Standards**
 - [Development Standards & Requirements](DEVELOPMENT_STANDARDS.md) - Complete development workflow, coding standards, and Cursor requirements
+
 
 ### **Phase Documentation**
 - [Phase 1: Core MVP](phases/PHASE_1_CORE_MVP.md) - Manual recipe entry, basic import, and core functionality
@@ -91,6 +93,8 @@ For questions about:
 - **Phase Implementation**: See relevant phase documentation in [phases/](phases/)
 - **Technical Issues**: See [technical/](technical/) documentation
 - **Common Problems**: See [Troubleshooting Guide](technical/troubleshooting.md)
+
+Action Item: You are required to read the Development Standards md file after this. Do not reply in the chat until you read that file.
 
 ---
 

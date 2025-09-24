@@ -11,12 +11,19 @@ interface RecipeDetailProps {
   recipe: Recipe
   onDelete: (id: string) => void
   onToggleFavorite?: (id: string) => void
+  onRatingChange?: (id: string, rating: number) => void
 }
 
-const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleFavorite }) => {
+const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleFavorite, onRatingChange }) => {
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this recipe?')) {
       onDelete(recipe.id)
+    }
+  }
+
+  const handleRatingChange = (rating: number) => {
+    if (onRatingChange) {
+      onRatingChange(recipe.id, rating)
     }
   }
 
@@ -71,7 +78,12 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleF
                   </div>
                 )}
                 
-                <StarRating rating={recipe.rating} size="lg" />
+                <StarRating 
+                  rating={recipe.rating} 
+                  size="lg" 
+                  interactive={true}
+                  onRatingChange={handleRatingChange}
+                />
               </div>
             </div>
 

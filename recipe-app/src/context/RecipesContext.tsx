@@ -77,7 +77,17 @@ const recipesReducer = (state: RecipesState, action: RecipesAction): RecipesStat
         recipe.id === action.payload.id ? action.payload : recipe
       )
       saveRecipes(updatedRecipes)
-      return { ...state, recipes: updatedRecipes }
+      
+      // Update filteredRecipes to reflect the change
+      const updatedFilteredRecipesForUpdate = state.filteredRecipes.map(recipe =>
+        recipe.id === action.payload.id ? action.payload : recipe
+      )
+      
+      return { 
+        ...state, 
+        recipes: updatedRecipes,
+        filteredRecipes: updatedFilteredRecipesForUpdate
+      }
     
     case 'DELETE_RECIPE':
       const filteredRecipes = state.recipes.filter(recipe => recipe.id !== action.payload)
@@ -255,7 +265,7 @@ export const RecipesProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   useEffect(() => {
     dispatch({ type: 'APPLY_FILTERS' })
-  }, [state.filters, state.recipes.length]) // Only depend on recipes length, not the entire recipes array
+  }, [state.filters, state.recipes]) // Depend on recipes array to refresh when recipes are updated
 
   const addRecipe = (recipeData: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>) => {
     const recipe = createRecipe(recipeData)

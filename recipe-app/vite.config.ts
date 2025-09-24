@@ -15,7 +15,9 @@ export default defineConfig({
     watch: {
       usePolling: false,
       interval: 100
-    }
+    },
+    // Enable SPA fallback for development - serves index.html for all routes
+    historyApiFallback: true
   },
   build: {
     outDir: '../dist', // Build to root dist directory for GitHub Pages

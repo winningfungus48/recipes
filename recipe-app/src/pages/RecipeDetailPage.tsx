@@ -7,13 +7,22 @@ import RecipeDetail from '../components/RecipeDetail'
 const RecipeDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { getRecipeById, deleteRecipe, toggleFavorite } = useRecipes()
+  const { getRecipeById, deleteRecipe, toggleFavorite, updateRecipe } = useRecipes()
 
   const recipe = id ? getRecipeById(id) : undefined
 
   const handleDelete = (recipeId: string) => {
     deleteRecipe(recipeId)
     navigate('/recipes')
+  }
+
+  const handleRatingChange = (recipeId: string, rating: number) => {
+    if (recipe) {
+      updateRecipe({
+        ...recipe,
+        rating: rating
+      })
+    }
   }
 
   if (!recipe) {
@@ -52,6 +61,7 @@ const RecipeDetailPage: React.FC = () => {
           recipe={recipe}
           onDelete={handleDelete}
           onToggleFavorite={toggleFavorite}
+          onRatingChange={handleRatingChange}
         />
       </div>
     </div>

@@ -1,5 +1,34 @@
 # 🚀 Next Steps - Recipe App Development
 
+## **🎯 Next Improvement: Hamburger Menu (Navigation Drawer)**
+
+### **Cursor Prompt – Hamburger Menu (Navigation Drawer)**
+
+Act as a senior SaaS engineer. Implement a functional hamburger menu for the Recipe App. When the hamburger icon is clicked, a **slide-in side drawer** should appear from the left with a semi-transparent overlay that closes the drawer when clicked or when the user presses escape.
+
+Inside the drawer, add navigation links for both existing and placeholder pages:
+
+* **Home** (future landing page)
+* **Recipes** (existing `/recipes` page)
+* **Favorites** (placeholder `/favorites` page)
+* **Categories** (placeholder `/categories` page with filter functionality later)
+* **About** (placeholder `/about` page)
+* **Settings/Contact** (placeholder `/settings` page)
+
+Use the app's existing icon set to add simple icons next to each link for polish. Keep placeholder pages minimal — just scaffold routes with a header/title for now. Ensure the drawer is reusable and easily expandable as more pages are added.
+
+Deliverable should include:
+
+* Updated hamburger icon click behavior to open/close the drawer
+* Slide-in animation and overlay
+* Navigation links wired to routes (existing and placeholder)
+* Minimal placeholder pages scaffolded for each new route
+* A short markdown summary listing updated/added files, routes created, and verification steps
+
+Do not modify unrelated components or styling beyond the scope of this navigation drawer.
+
+---
+
 ## **Current Status (Last Updated: 2025-01-15)**
 
 ### **✅ Recently Completed**

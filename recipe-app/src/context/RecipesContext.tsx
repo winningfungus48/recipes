@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react'
 import { Recipe, FilterOptions, ViewMode } from '../types/recipe'
 import { saveRecipes, createRecipe, updateRecipe, loadRecipesWithMigration, searchRecipe, saveViewMode, loadViewMode } from '../utils/storage'
+import { shouldLoadSampleData, loadSampleData, hasSampleDataLoaded, clearAllRecipeData } from '../utils/sampleData'
 
 // Utility function to parse time strings to minutes
 const parseTime = (timeStr: string): number => {
@@ -208,6 +209,9 @@ interface RecipesContextType {
   applyFilters: () => void
   clearFilters: () => void
   getRecipeById: (id: string) => Recipe | undefined
+  loadSampleData: () => { success: boolean; message: string; errors?: string[] }
+  clearAllData: () => { success: boolean; message: string }
+  hasSampleDataLoaded: () => boolean
 }
 
 const RecipesContext = createContext<RecipesContextType | undefined>(undefined)
@@ -219,6 +223,18 @@ export const RecipesProvider: React.FC<{ children: ReactNode }> = ({ children })
     const loadInitialData = async () => {
       dispatch({ type: 'SET_LOADING', payload: true })
       try {
+        // Check if we should load sample data (first visit + no existing recipes)
+        if (shouldLoadSampleData()) {
+          console.log('First visit detected - loading sample data...')
+          const sampleResult = loadSampleData()
+          if (sampleResult.success) {
+            console.log('✅ Sample data loaded successfully')
+          } else {
+            console.error('❌ Failed to load sample data:', sampleResult.message)
+          }
+        }
+
+        // Load recipes (either existing or newly loaded sample data)
         const recipes = loadRecipesWithMigration()
         dispatch({ type: 'LOAD_RECIPES', payload: recipes })
         
@@ -295,6 +311,25 @@ export const RecipesProvider: React.FC<{ children: ReactNode }> = ({ children })
     return state.recipes.find(recipe => recipe.id === id)
   }
 
+  const loadSampleDataHandler = () => {
+    const result = loadSampleData()
+    if (result.success) {
+      // Reload recipes to include the newly loaded sample data
+      const recipes = loadRecipesWithMigration()
+      dispatch({ type: 'LOAD_RECIPES', payload: recipes })
+    }
+    return result
+  }
+
+  const clearAllDataHandler = () => {
+    const result = clearAllRecipeData()
+    if (result.success) {
+      // Clear the current state
+      dispatch({ type: 'LOAD_RECIPES', payload: [] })
+    }
+    return result
+  }
+
   const value: RecipesContextType = {
     state,
     addRecipe,
@@ -306,7 +341,10 @@ export const RecipesProvider: React.FC<{ children: ReactNode }> = ({ children })
     setViewMode,
     applyFilters,
     clearFilters,
-    getRecipeById
+    getRecipeById,
+    loadSampleData: loadSampleDataHandler,
+    clearAllData: clearAllDataHandler,
+    hasSampleDataLoaded
   }
 
   return (

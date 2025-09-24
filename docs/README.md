@@ -14,6 +14,7 @@ Welcome to the comprehensive documentation for the Recipe App project. This hub 
 ### **Phase Documentation**
 - [Phase 1: Core MVP](phases/PHASE_1_CORE_MVP.md) - Manual recipe entry, basic import, and core functionality
 - [Phase 2: Smart Imports + UX Enhancements](phases/PHASE_2_SMART_IMPORTS.md) - Bulk import, advanced filtering, and enhanced UX
+- [Future Features](FUTURE_FEATURES.md) - Comprehensive roadmap of features to implement when it makes most sense
 
 ### **Technical Documentation**
 - [Data Model](technical/data-model.md) - Recipe schema, data structure, and migration strategies
@@ -32,7 +33,7 @@ Welcome to the comprehensive documentation for the Recipe App project. This hub 
 - ✅ **Phase 2**: Complete - Smart imports, advanced filtering, and UX enhancements
 - 🔄 **Phase 3**: Planned - AI assistant foundation
 - 🔄 **Phase 4**: Planned - Personal assistant tools
-- 🔄 **Phase 5**: Planned - Scale & share capabilities
+- 🔄 **Future Features**: Ongoing - Comprehensive feature roadmap for flexible implementation
 
 ### **Technology Stack**
 - **Frontend**: React 18.3.1, TypeScript, Vite

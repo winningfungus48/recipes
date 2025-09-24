@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import { useRecipes } from '../context/RecipesContext'
 import Header from '../components/Header'
-import { Tag, Folder, Edit2, Trash2, Plus, X } from 'lucide-react'
+import { Tag, Folder, Edit2, Trash2, Plus, X, Database, Download, Trash, AlertTriangle } from 'lucide-react'
 import { Category } from '../types/recipe'
 
 const ManagePage: React.FC = () => {
-  const { state, updateRecipe } = useRecipes()
-  const [activeTab, setActiveTab] = useState<'tags' | 'categories'>('tags')
+  const { state, updateRecipe, loadSampleData, clearAllData, hasSampleDataLoaded } = useRecipes()
+  const [activeTab, setActiveTab] = useState<'tags' | 'categories' | 'data'>('tags')
   const [editingTag, setEditingTag] = useState<string | null>(null)
   const [editingCategory, setEditingCategory] = useState<Category | null>(null)
   const [newTag, setNewTag] = useState('')
+  const [showClearConfirm, setShowClearConfirm] = useState(false)
+  const [dataAction, setDataAction] = useState<'loading' | 'success' | 'error' | null>(null)
+  const [dataMessage, setDataMessage] = useState('')
 
   // Get all unique tags from recipes
   const allTags = Array.from(new Set(state.recipes.flatMap(recipe => recipe.tags))).sort()
@@ -78,6 +81,57 @@ const ManagePage: React.FC = () => {
     return state.recipes.filter(recipe => recipe.category === category).length
   }
 
+  const handleLoadSampleData = async () => {
+    setDataAction('loading')
+    setDataMessage('Loading sample data...')
+    
+    try {
+      const result = loadSampleData()
+      if (result.success) {
+        setDataAction('success')
+        setDataMessage(result.message)
+      } else {
+        setDataAction('error')
+        setDataMessage(result.message)
+      }
+    } catch (error) {
+      setDataAction('error')
+      setDataMessage('An unexpected error occurred')
+    }
+    
+    // Clear message after 3 seconds
+    setTimeout(() => {
+      setDataAction(null)
+      setDataMessage('')
+    }, 3000)
+  }
+
+  const handleClearAllData = async () => {
+    setDataAction('loading')
+    setDataMessage('Clearing all data...')
+    
+    try {
+      const result = clearAllData()
+      if (result.success) {
+        setDataAction('success')
+        setDataMessage(result.message)
+        setShowClearConfirm(false)
+      } else {
+        setDataAction('error')
+        setDataMessage(result.message)
+      }
+    } catch (error) {
+      setDataAction('error')
+      setDataMessage('An unexpected error occurred')
+    }
+    
+    // Clear message after 3 seconds
+    setTimeout(() => {
+      setDataAction(null)
+      setDataMessage('')
+    }, 3000)
+  }
+
   return (
     <div className="min-h-screen bg-cream-50">
       <Header />
@@ -85,10 +139,10 @@ const ManagePage: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
-            Manage Tags & Categories
+            Manage Data
           </h1>
           <p className="text-gray-600 mt-2">
-            Organize your recipe collection by managing tags and categories.
+            Organize your recipe collection and manage sample data for testing.
           </p>
         </div>
 
@@ -117,6 +171,18 @@ const ManagePage: React.FC = () => {
             >
               <Folder className="h-4 w-4" />
               <span>Categories ({allCategories.length})</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab('data')}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'data'
+                  ? 'bg-white text-sage-700 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Database className="h-4 w-4" />
+              <span>Data Management</span>
             </button>
           </div>
         </div>
@@ -265,6 +331,130 @@ const ManagePage: React.FC = () => {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* Data Management Tab */}
+        {activeTab === 'data' && (
+          <div className="space-y-6">
+            {/* Data Status */}
+            <div className="card">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Data Status</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl font-bold text-sage-700">{state.recipes.length}</div>
+                  <div className="text-sm text-gray-600">Total Recipes</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl font-bold text-sage-700">{allTags.length}</div>
+                  <div className="text-sm text-gray-600">Unique Tags</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl font-bold text-sage-700">{allCategories.length}</div>
+                  <div className="text-sm text-gray-600">Categories</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sample Data Management */}
+            <div className="card">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Sample Data</h2>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <h3 className="font-medium text-gray-900">Load Sample Data</h3>
+                    <p className="text-sm text-gray-600">
+                      Load 10 sample recipes for testing and demonstration purposes.
+                    </p>
+                    {hasSampleDataLoaded() && (
+                      <p className="text-sm text-green-600 mt-1">✓ Sample data already loaded</p>
+                    )}
+                  </div>
+                  <button
+                    onClick={handleLoadSampleData}
+                    disabled={dataAction === 'loading' || hasSampleDataLoaded()}
+                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                  >
+                    <Download className="h-4 w-4" />
+                    <span>{dataAction === 'loading' ? 'Loading...' : 'Load Sample Data'}</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg border border-red-200">
+                  <div>
+                    <h3 className="font-medium text-red-900">Clear All Data</h3>
+                    <p className="text-sm text-red-700">
+                      Permanently delete all recipes and reset the application.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setShowClearConfirm(true)}
+                    disabled={dataAction === 'loading' || state.recipes.length === 0}
+                    className="btn-danger disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                  >
+                    <Trash className="h-4 w-4" />
+                    <span>Clear All Data</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Feedback */}
+            {dataAction && (
+              <div className={`p-4 rounded-lg ${
+                dataAction === 'success' ? 'bg-green-50 border border-green-200' :
+                dataAction === 'error' ? 'bg-red-50 border border-red-200' :
+                'bg-blue-50 border border-blue-200'
+              }`}>
+                <div className="flex items-center space-x-2">
+                  {dataAction === 'loading' && (
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                  )}
+                  {dataAction === 'success' && (
+                    <div className="text-green-600">✓</div>
+                  )}
+                  {dataAction === 'error' && (
+                    <div className="text-red-600">✗</div>
+                  )}
+                  <span className={`text-sm ${
+                    dataAction === 'success' ? 'text-green-800' :
+                    dataAction === 'error' ? 'text-red-800' :
+                    'text-blue-800'
+                  }`}>
+                    {dataMessage}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Clear Confirmation Dialog */}
+            {showClearConfirm && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 max-w-md mx-4">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <AlertTriangle className="h-6 w-6 text-red-600" />
+                    <h3 className="text-lg font-semibold text-gray-900">Confirm Data Deletion</h3>
+                  </div>
+                  <p className="text-gray-600 mb-6">
+                    Are you sure you want to delete all {state.recipes.length} recipes? This action cannot be undone.
+                  </p>
+                  <div className="flex space-x-3">
+                    <button
+                      onClick={() => setShowClearConfirm(false)}
+                      className="btn-secondary flex-1"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleClearAllData}
+                      className="btn-danger flex-1"
+                    >
+                      Delete All Data
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

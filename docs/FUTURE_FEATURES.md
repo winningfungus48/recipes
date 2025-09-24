@@ -1,4 +1,4 @@
-# Future Features
+s # Future Features
 
 **Status**: 🔄 **ONGOING**  
 **Type**: Feature roadmap  
@@ -28,6 +28,14 @@ This document contains a comprehensive list of future features for the Recipe Ap
   - [ ] Data migration from local storage
   - [ ] Privacy policy and data handling
   - [ ] Minimal data collection approach
+- [ ] **Settings Page**
+  - [ ] Account information management
+  - [ ] User preferences and customizations
+  - [ ] Privacy and security settings
+  - [ ] Data export and import options
+  - [ ] Notification preferences
+  - [ ] Theme and display settings
+  - [ ] Advanced configuration options (details TBD)
 
 ### **Recipe Bank & Community Recipes**
 - [ ] **Community Recipe Library**
@@ -107,6 +115,11 @@ This document contains a comprehensive list of future features for the Recipe Ap
   - [ ] Built-in cooking timers
   - [ ] Voice assistant integration
   - [ ] Accessibility improvements
+- [ ] **Import UI Improvements**
+  - [ ] "Import from Web" button on main home page
+  - [ ] Toggle between manual entry and URL import on "Add New Recipe" page
+  - [ ] Clear visual distinction between entry methods
+  - [ ] Streamlined import workflow
 
 ### **Advanced Import Features**
 - [ ] **Content Import**
@@ -115,6 +128,12 @@ This document contains a comprehensive list of future features for the Recipe Ap
   - [ ] Enhanced URL scraping
   - [ ] Batch import capabilities
   - [ ] Format conversion tools
+- [ ] **Web Import Functionality**
+  - [ ] Make "Import from Web" URL feature fully functional
+  - [ ] Real web scraping implementation (currently mock)
+  - [ ] Recipe extraction from various websites
+  - [ ] Error handling for failed imports
+  - [ ] Preview and edit before saving
 
 ### **Mobile & Cross-Platform**
 - [ ] **Mobile Applications**

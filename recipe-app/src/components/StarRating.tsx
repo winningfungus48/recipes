@@ -6,22 +6,28 @@ interface StarRatingProps {
   onRatingChange?: (rating: number) => void
   interactive?: boolean
   size?: 'sm' | 'md' | 'lg'
+  mobileInteractive?: boolean // Allow override for mobile interaction
 }
 
 const StarRating: React.FC<StarRatingProps> = ({ 
   rating, 
   onRatingChange, 
   interactive = false, 
-  size = 'md' 
+  size = 'md',
+  mobileInteractive = false
 }) => {
   const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-5 h-5',
-    lg: 'w-6 h-6'
+    sm: 'w-3 h-3 md:w-4 md:h-4', // Mobile: smaller, Desktop: normal
+    md: 'w-4 h-4 md:w-5 md:h-5', // Mobile: smaller, Desktop: normal  
+    lg: 'w-5 h-5 md:w-6 md:h-6'  // Mobile: smaller, Desktop: normal
   }
+  
+  // Mobile interaction logic - disable on mobile unless explicitly enabled
+  // Use CSS classes to handle mobile interaction instead of JavaScript
+  const isInteractive = interactive
 
   const handleClick = (newRating: number) => {
-    if (interactive && onRatingChange) {
+    if (isInteractive && onRatingChange) {
       onRatingChange(newRating)
     }
   }
@@ -31,7 +37,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   }
 
   return (
-    <div className="flex space-x-1">
+    <div className="mobile-star-container">
       {[1, 2, 3, 4, 5].map((star) => {
         const isHalfStar = rating >= star - 0.5 && rating < star
         const isFullStar = rating >= star
@@ -42,10 +48,10 @@ const StarRating: React.FC<StarRatingProps> = ({
             type="button"
             onClick={() => handleClick(star)}
             onMouseEnter={() => handleMouseEnter(star)}
-            disabled={!interactive}
-            className={`${sizeClasses[size]} ${
-              interactive ? 'cursor-pointer' : 'cursor-default'
-            } transition-colors duration-150`}
+            disabled={!isInteractive}
+            className={`mobile-star-button ${sizeClasses[size]} ${
+              isInteractive ? 'cursor-pointer md:cursor-pointer' : 'cursor-default'
+            } ${!mobileInteractive ? 'pointer-events-none md:pointer-events-auto' : ''} transition-colors duration-150`}
           >
             <Star
               className={`${sizeClasses[size]} ${

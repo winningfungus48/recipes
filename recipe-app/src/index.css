@@ -56,4 +56,140 @@
   .star-empty {
     @apply text-gray-300;
   }
+  
+  /* Mobile-specific utilities */
+  .mobile-touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+  
+  .mobile-text-truncate {
+    @apply truncate overflow-hidden whitespace-nowrap;
+  }
+  
+  .mobile-card-spacing {
+    @apply space-y-2 md:space-y-1;
+  }
+  
+  .mobile-flex-col {
+    @apply flex flex-col md:flex-row;
+  }
+  
+  .mobile-items-center {
+    @apply items-center md:items-start;
+  }
+  
+  .mobile-space-x {
+    @apply space-x-2 md:space-x-4;
+  }
+  
+  .mobile-space-y {
+    @apply space-y-1 md:space-y-0;
+  }
+  
+  .mobile-padding {
+    @apply p-2 md:p-1;
+  }
+  
+  .mobile-margin {
+    @apply -m-2 md:-m-1;
+  }
+  
+  .mobile-hidden {
+    @apply hidden md:flex;
+  }
+  
+  .mobile-visible {
+    @apply flex md:hidden;
+  }
+  
+  /* Enhanced mobile touch targets */
+  .mobile-button {
+    @apply mobile-touch-target flex items-center justify-center;
+  }
+  
+  .mobile-heart-button {
+    @apply mobile-touch-target flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors p-2 -m-2 md:p-1 md:-m-1;
+  }
+  
+  .mobile-heart-icon {
+    @apply h-3 w-3 md:h-4 md:w-4;
+  }
+  
+  .mobile-star-container {
+    @apply flex items-center space-x-1;
+  }
+  
+  .mobile-star-button {
+    @apply mobile-touch-target flex items-center justify-center p-2 -m-2 md:p-1 md:-m-1;
+  }
+  
+  .mobile-star-icon {
+    @apply w-3 h-3 md:w-4 md:h-4;
+  }
+  
+  .mobile-star-icon-sm {
+    @apply w-3 h-3 md:w-4 md:h-4;
+  }
+  
+  .mobile-star-icon-md {
+    @apply w-4 h-4 md:w-5 md:h-5;
+  }
+  
+  .mobile-star-icon-lg {
+    @apply w-5 h-5 md:w-6 md:h-6;
+  }
+  
+  /* Mobile card layout utilities */
+  .mobile-recipe-card {
+    @apply mobile-card-spacing;
+  }
+  
+  .mobile-recipe-title {
+    @apply mobile-text-truncate text-lg font-semibold text-gray-900 hover:text-sage-600 transition-colors;
+  }
+  
+  .mobile-recipe-meta {
+    @apply mobile-flex-col mobile-items-center mobile-space-x mobile-space-y;
+  }
+  
+  .mobile-recipe-tags {
+    @apply mobile-hidden flex-wrap gap-1 mt-2;
+  }
+  
+  .mobile-cook-time {
+    @apply mobile-visible items-center text-sm text-gray-500;
+  }
+  
+  .mobile-cook-time-desktop {
+    @apply mobile-hidden items-center text-sm text-gray-500;
+  }
+  
+  /* Enhanced mobile layout utilities */
+  .mobile-flex-between {
+    @apply flex items-center justify-between gap-2;
+  }
+  
+  .mobile-flex-wrap {
+    @apply flex flex-wrap gap-2;
+  }
+  
+  .mobile-no-wrap {
+    @apply flex items-center gap-2 flex-nowrap;
+  }
+  
+  .mobile-text-truncate {
+    @apply truncate overflow-hidden whitespace-nowrap;
+  }
+  
+  .mobile-icon-container {
+    @apply flex items-center justify-center flex-shrink-0;
+  }
+  
+  .mobile-responsive-gap {
+    @apply gap-2 md:gap-4;
+  }
+  
+  .mobile-responsive-space {
+    @apply space-x-2 md:space-x-4;
+  }
 }

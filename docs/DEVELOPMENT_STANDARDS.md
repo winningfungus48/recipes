@@ -205,6 +205,21 @@ When reporting task completion, include:
 - **Type Check**: `npx tsc --noEmit`
 - **Build**: `npm run build`
 
+### **Development Server Workflow**
+**IMPORTANT**: When starting the development server, always provide these exact instructions:
+
+1. **Open PowerShell** (or Command Prompt)
+2. **Navigate to project directory**: `cd C:\Dev\recipes\recipe-app`
+3. **Start development server**: `npm run dev`
+4. **Keep terminal open** (don't close it while developing)
+5. **Open browser to**: `http://localhost:3000/recipes/`
+
+**Why this approach:**
+- Background process management through tools is unreliable
+- Manual terminal control ensures server stays running
+- Developer sees all server output and errors
+- Standard development workflow for most projects
+
 ### **Key Directories**
 - **Source Code**: `src/`
 - **Documentation**: `docs/`

@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Clock, Edit, Trash2, ArrowLeft, Heart } from 'lucide-react'
+import { Clock, ArrowLeft, Heart, ChevronDown, ChevronUp } from 'lucide-react'
 import { Recipe } from '../types/recipe'
-import { CATEGORY_ICONS, CATEGORY_COLORS } from '../data/categories'
+import { CATEGORY_ICONS, CATEGORY_COLORS, DIFFICULTY_COLORS, DIFFICULTY_ICONS } from '../data/categories'
 import { getTagColor } from '../data/tags'
 import { getCombinedIngredients, getSectionedInstructions } from '../utils/storage'
 import StarRating from './StarRating'
+import MobileHeader from './MobileHeader'
+import ResponsivePage from './ResponsivePage'
+import EllipsisMenu from './EllipsisMenu'
 
 interface RecipeDetailProps {
   recipe: Recipe
@@ -15,6 +18,8 @@ interface RecipeDetailProps {
 }
 
 const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleFavorite, onRatingChange }) => {
+  const [showDetails, setShowDetails] = useState(false)
+
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this recipe?')) {
       onDelete(recipe.id)
@@ -27,6 +32,11 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleF
     }
   }
 
+  const handleEdit = () => {
+    // Navigate to edit page - this will be handled by the parent component
+    window.location.href = `/recipes/${recipe.id}/edit`
+  }
+
   // Get combined ingredients from all sections
   const combinedIngredients = getCombinedIngredients(recipe)
   
@@ -34,93 +44,127 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleF
   const sectionedInstructions = getSectionedInstructions(recipe)
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Back Button */}
-      <div className="mb-6">
-        <Link
-          to="/recipes"
-          className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Back to Recipes</span>
-        </Link>
-      </div>
-
-      <div className="card">
-        {/* Header */}
+    <ResponsivePage>
+      <div className="max-w-4xl mx-auto">
+        {/* Back Button */}
         <div className="mb-6">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex-1">
-              <div className="flex items-center space-x-3 mb-2">
-                <h1 className="text-3xl font-bold text-gray-900">
-                  {recipe.title}
-                </h1>
+          <Link
+            to="/recipes"
+            className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>Back to Recipes</span>
+          </Link>
+        </div>
+
+        <div className="card">
+          {/* Mobile Header - Title + Heart + Stars */}
+            <MobileHeader
+              title={recipe.title}
+              rating={recipe.rating}
+              isFavorite={recipe.isFavorite}
+              onToggleFavorite={onToggleFavorite ? () => onToggleFavorite(recipe.id) : undefined}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              className="mb-4"
+            />
+
+          {/* Desktop Header */}
+          <div className="hidden md:block mb-6">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex-1">
+                <div className="flex items-center space-x-3 mb-2">
+                  <h1 className="text-3xl font-bold text-gray-900">
+                    {recipe.title}
+                  </h1>
+                  
+                  {onToggleFavorite && (
+                    <button
+                      onClick={() => onToggleFavorite(recipe.id)}
+                      className="text-gray-400 hover:text-red-500 transition-colors"
+                    >
+                      <Heart className={`h-6 w-6 ${recipe.isFavorite ? 'text-red-500 fill-current' : ''}`} />
+                    </button>
+                  )}
+                </div>
                 
-                {onToggleFavorite && (
-                  <button
-                    onClick={() => onToggleFavorite(recipe.id)}
-                    className="text-gray-400 hover:text-red-500 transition-colors"
-                  >
-                    <Heart className={`h-6 w-6 ${recipe.isFavorite ? 'text-red-500 fill-current' : ''}`} />
-                  </button>
-                )}
+                <div className="flex items-center space-x-4 mb-4">
+                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${CATEGORY_COLORS[recipe.category]}`}>
+                    {CATEGORY_ICONS[recipe.category]} {recipe.category}
+                  </span>
+                  
+                  {recipe.cookTime && (
+                    <div className="flex items-center text-gray-600">
+                      <Clock className="h-4 w-4 mr-1" />
+                      {recipe.cookTime}
+                    </div>
+                  )}
+                  
+                  <StarRating 
+                    rating={recipe.rating} 
+                    size="lg" 
+                    interactive={true}
+                    onRatingChange={handleRatingChange}
+                  />
+                </div>
               </div>
-              
-              <div className="flex items-center space-x-4 mb-4">
-                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${CATEGORY_COLORS[recipe.category]}`}>
-                  {CATEGORY_ICONS[recipe.category]} {recipe.category}
-                </span>
-                
-                {recipe.cookTime && (
-                  <div className="flex items-center text-gray-600">
-                    <Clock className="h-4 w-4 mr-1" />
-                    {recipe.cookTime}
-                  </div>
-                )}
-                
-                <StarRating 
-                  rating={recipe.rating} 
-                  size="lg" 
-                  interactive={true}
-                  onRatingChange={handleRatingChange}
+
+              {/* Desktop Action Menu */}
+              <div className="hidden md:block">
+                <EllipsisMenu
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
                 />
               </div>
             </div>
+          </div>
 
-            {/* Action Buttons */}
-            <div className="flex space-x-2">
-              <Link
-                to={`/recipes/${recipe.id}/edit`}
-                className="btn-outline-sm flex items-center space-x-1"
-              >
-                <Edit className="h-3 w-3" />
-                <span>Edit</span>
-              </Link>
+          {/* Mobile: Category/Difficulty badges below title */}
+          <div className="md:hidden mb-4">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${CATEGORY_COLORS[recipe.category]}`}>
+                {CATEGORY_ICONS[recipe.category]} {recipe.category}
+              </span>
               
-              <button
-                onClick={handleDelete}
-                className="btn-secondary-sm text-red-600 hover:text-red-800 hover:bg-red-50 flex items-center space-x-1"
-              >
-                <Trash2 className="h-3 w-3" />
-                <span>Delete</span>
-              </button>
+              {recipe.difficulty && (
+                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${DIFFICULTY_COLORS[recipe.difficulty]}`}>
+                  {DIFFICULTY_ICONS[recipe.difficulty]} {recipe.difficulty}
+                </span>
+              )}
+              
+              {recipe.cookTime && (
+                <div className="flex items-center text-sm text-gray-500">
+                  <Clock className="h-4 w-4 mr-1" />
+                  <span>{recipe.cookTime}</span>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Image */}
+          {/* Image - Full width with 16:9 aspect ratio and responsive optimization */}
           {recipe.image && (
             <div className="mb-6">
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                className="w-full h-64 object-cover rounded-lg"
-              />
+              <div className="aspect-w-16 aspect-h-9">
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="w-full h-64 md:h-80 object-cover rounded-lg"
+                  loading="lazy"
+                  srcSet={`
+                    ${recipe.image}?w=320 320w,
+                    ${recipe.image}?w=640 640w,
+                    ${recipe.image}?w=960 960w,
+                    ${recipe.image}?w=1280 1280w
+                  `}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
             </div>
           )}
 
-          {/* Tags */}
+          {/* Tags - Hidden on mobile, visible on desktop */}
           {recipe.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="hidden md:flex flex-wrap gap-2 mb-6">
               {recipe.tags.map((tag, index) => (
                 <span
                   key={tag}
@@ -131,7 +175,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleF
               ))}
             </div>
           )}
-        </div>
+
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -196,19 +240,59 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onDelete, onToggleF
           </div>
         )}
 
-        {/* Metadata */}
-        <div className="mt-8 pt-6 border-t border-gray-200 text-sm text-gray-500">
-          <p>
-            Created: {new Date(recipe.createdAt).toLocaleDateString()}
-            {recipe.updatedAt && recipe.updatedAt !== recipe.createdAt && (
-              <span className="ml-4">
-                Updated: {new Date(recipe.updatedAt).toLocaleDateString()}
-              </span>
+          {/* Desktop Metadata */}
+          <div className="hidden md:block mt-8 pt-6 border-t border-gray-200 text-sm text-gray-500">
+            <p>
+              Created: {new Date(recipe.createdAt).toLocaleDateString()}
+              {recipe.updatedAt && recipe.updatedAt !== recipe.createdAt && (
+                <span className="ml-4">
+                  Updated: {new Date(recipe.updatedAt).toLocaleDateString()}
+                </span>
+              )}
+            </p>
+          </div>
+        </div>
+
+        {/* Mobile: Collapsed Details Disclosure - Bottom of screen */}
+        <div className="md:hidden mb-6">
+          <button
+            onClick={() => setShowDetails(!showDetails)}
+            className="w-full flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <span className="font-medium text-gray-900">Details</span>
+            {showDetails ? (
+              <ChevronUp className="h-4 w-4 text-gray-500" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-gray-500" />
             )}
-          </p>
+          </button>
+          
+          {showDetails && (
+            <div className="mt-2 p-3 bg-gray-50 rounded-lg text-sm text-gray-600 space-y-1">
+              <p>Created: {new Date(recipe.createdAt).toLocaleDateString()}</p>
+              {recipe.updatedAt && recipe.updatedAt !== recipe.createdAt && (
+                <p>Updated: {new Date(recipe.updatedAt).toLocaleDateString()}</p>
+              )}
+              {recipe.sourceUrl && (
+                <p>Source: <a href={recipe.sourceUrl} className="text-sage-600 hover:underline" target="_blank" rel="noopener noreferrer">View Original</a></p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Action Menu - Sticky ellipsis button */}
+        <div 
+          className="fixed bottom-4 right-4 z-50"
+          data-mobile-only="true"
+        >
+          <EllipsisMenu
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            className="bg-white shadow-lg rounded-full p-2 border border-gray-200"
+          />
         </div>
       </div>
-    </div>
+    </ResponsivePage>
   )
 }
 

@@ -37,7 +37,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   }
 
   return (
-    <div className="mobile-star-container">
+    <div className="flex items-center -space-x-0.5">
       {[1, 2, 3, 4, 5].map((star) => {
         const isHalfStar = rating >= star - 0.5 && rating < star
         const isFullStar = rating >= star
@@ -49,9 +49,9 @@ const StarRating: React.FC<StarRatingProps> = ({
             onClick={() => handleClick(star)}
             onMouseEnter={() => handleMouseEnter(star)}
             disabled={!isInteractive}
-            className={`mobile-star-button ${sizeClasses[size]} ${
-              isInteractive ? 'cursor-pointer md:cursor-pointer' : 'cursor-default'
-            } ${!mobileInteractive ? 'pointer-events-none md:pointer-events-auto' : ''} transition-colors duration-150`}
+            className={`p-0.5 -m-0.5 ${
+              isInteractive ? 'cursor-pointer' : 'cursor-default'
+            } transition-colors duration-150`}
           >
             <Star
               className={`${sizeClasses[size]} ${

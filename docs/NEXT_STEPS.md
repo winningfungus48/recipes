@@ -1,4 +1,5 @@
 # 🚀 Next Steps - Recipe App Development
+first do the hamburger menu improvement then do the add new recipe dropdown afterwards. 
 
 ## **🎯 Next Improvement: Hamburger Menu (Navigation Drawer)**
 
@@ -26,6 +27,54 @@ Deliverable should include:
 * A short markdown summary listing updated/added files, routes created, and verification steps
 
 Do not modify unrelated components or styling beyond the scope of this navigation drawer.
+
+
+**Cursor Prompt — Add New Recipe Dropdown (Desktop + Mobile)**
+
+Act as a senior SaaS engineer. Replace the existing **Import button** in the top navigation with a new **“Add New Recipe” dropdown** that works consistently on both desktop and mobile.
+
+### Requirements
+
+1. **Dropdown Options**
+
+   * **Single Recipe (Manual Entry)** → route to manual entry page.
+   * **Import by URL** → route to existing import page.
+   * **Bulk Import** → route to existing bulk import page.
+   * **Screenshots** → create new `/screenshots` page with placeholder text (“Coming Soon: Screenshot Import”), simple layout, no functionality.
+
+2. **Desktop Behavior**
+
+   * Dropdown button placed in the top nav where Import button was.
+   * Opens on **hover**, closes automatically on selection.
+   * Text-only links, consistent styling with current nav.
+   * Smooth fade/slide animation for open/close.
+
+3. **Mobile Behavior**
+
+   * Inside the hamburger drawer, show **“Add New Recipe”** as an expandable submenu.
+   * Expands/collapses on **tap**; closes after selection.
+   * Uses the same shared dropdown component as desktop for consistency.
+
+4. **Reusability & Accessibility**
+
+   * Build the dropdown as a reusable component so new options (e.g., AI Import, Camera Capture) can be added easily.
+   * Ensure **keyboard navigation support**: tab/arrow keys move through items.
+   * Highlight active/selected item with subtle background or underline.
+
+5. **Styling Enhancements**
+
+   * Style “Add New Recipe” button slightly more prominently (primary action style).
+   * Preserve consistent spacing and alignment across breakpoints.
+
+### Deliverables
+
+* New reusable **AddNewRecipeDropdown** component in `src/components/`.
+* Updated nav bar (desktop) and hamburger drawer (mobile) to use this dropdown.
+* New `/screenshots` placeholder page scaffolded with template.
+* Short markdown summary listing updated files, new component, and verification steps (desktop hover works, mobile expand works, routes navigate correctly, accessibility confirmed).
+
+Do not modify unrelated components. Keep all other pages functional.
+
 
 ---
 

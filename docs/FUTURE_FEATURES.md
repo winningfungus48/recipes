@@ -60,6 +60,18 @@ This document contains a comprehensive list of future features for the Recipe Ap
   - [ ] Nutritional analysis and recommendations
   - [ ] Smart tagging and categorization
 
+### **Branding & Publishing**
+- [ ] **App Rebranding**
+  - [ ] Rename app to "Cooks Books" with tagline "where cooks share their books"
+  - [ ] Update branding, logos, and visual identity
+  - [ ] Update domain and marketing materials
+- [ ] **Custom Cookbooks**
+  - [ ] Users can create and publish custom cookbooks
+  - [ ] Select and organize recipes into themed collections
+  - [ ] Custom cookbook cover designs and descriptions
+  - [ ] Public and private cookbook settings
+  - [ ] Cookbook discovery and browsing
+
 ### **Multi-User & Sharing**
 - [ ] **Collaborative Features**
   - [ ] Household accounts and shared collections
@@ -67,6 +79,12 @@ This document contains a comprehensive list of future features for the Recipe Ap
   - [ ] Public and private recipe sharing
   - [ ] Recipe versioning and history
   - [ ] Permission management and access control
+- [ ] **Cookbook Sharing**
+  - [ ] Share entire cookbooks with other users
+  - [ ] Share individual "pages" (recipes) from cookbooks
+  - [ ] Social sharing links for cookbooks and recipes
+  - [ ] Cookbook embedding and public links
+  - [ ] Cross-platform sharing integration
 
 ### **Advanced Search & Filters**
 - [ ] **Enhanced Discovery**
@@ -85,6 +103,12 @@ This document contains a comprehensive list of future features for the Recipe Ap
   - [ ] Shopping list sharing and collaboration
 
 ### **Social & Engagement**
+- [ ] **Social Page**
+  - [ ] Dedicated social media-style page for community interaction
+  - [ ] Recipe sharing feed with user posts
+  - [ ] Social media integration for sharing recipes
+  - [ ] Community activity timeline
+  - [ ] Social engagement metrics and analytics
 - [ ] **Community Features**
   - [ ] Recipe comments and reviews
   - [ ] User ratings and favorites

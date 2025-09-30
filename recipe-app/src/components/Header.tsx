@@ -46,7 +46,7 @@ const Header: React.FC = () => {
               }`}
             >
               <Plus className="h-4 w-4" />
-              <span>+ New Recipe</span>
+              <span>New Recipe</span>
             </Link>
             
             <Link

@@ -69,6 +69,9 @@ This document contains a comprehensive list of future features for the Recipe Ap
   - [ ] Users can create and publish custom cookbooks
   - [ ] Select and organize recipes into themed collections
   - [ ] Custom cookbook cover designs and descriptions
+  - [ ] Make cover image upload/selection functional
+  - [ ] Support cookbook export/sharing (PDF, CSV, future AI summary)
+  - [ ] Extend schema to allow tags or advanced metadata per cookbook
   - [ ] Public and private cookbook settings
   - [ ] Cookbook discovery and browsing
 

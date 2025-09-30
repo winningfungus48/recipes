@@ -7,7 +7,7 @@ description: "A personal recipe organizer website built with React and Vite"
 baseurl: ""
 url: ""
 
-# Exclude everything except what we need
+# Disable Jekyll processing entirely for static site
 exclude:
   - node_modules
   - recipe-app
@@ -16,20 +16,22 @@ exclude:
   - "*.tmp"
   - ".DS_Store"
   - "Thumbs.db"
+  - "*.md"
+  - "docs/"
 
-# Include only necessary files
+# Include all files in root
 include:
   - "index.html"
   - "404.html"
   - "assets/"
-  - "docs/"
   - "vite.svg"
+  - ".nojekyll"
 
 # Disable Jekyll processing for static assets
 keep_files:
   - assets/
   - vite.svg
+  - ".nojekyll"
 
-# Minimal plugins
-plugins:
-  - jekyll-github-metadata
+# Disable Jekyll entirely
+plugins: []

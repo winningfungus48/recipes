@@ -4,6 +4,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import LandingPage from './pages/LandingPage'
 import RecipeListPage from './pages/RecipeListPage'
 import NewRecipePage from './pages/NewRecipePage'
+import ManualRecipePage from './pages/ManualRecipePage'
 import ImportRecipePage from './pages/ImportRecipePage'
 import BulkImportPage from './pages/BulkImportPage'
 import ManagePage from './pages/ManagePage'
@@ -19,7 +20,8 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/recipes" element={<RecipeListPage />} />
-              <Route path="/new" element={<NewRecipePage />} />
+              <Route path="/new" element={<ManualRecipePage />} />
+              <Route path="/newrecipe" element={<NewRecipePage />} />
               <Route path="/import" element={<ImportRecipePage />} />
               <Route path="/import/bulk" element={<BulkImportPage />} />
               <Route path="/manage" element={<ManagePage />} />

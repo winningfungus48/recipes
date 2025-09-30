@@ -37,7 +37,7 @@ const LandingPage: React.FC = () => {
             </Link>
             
             <Link
-              to="/new"
+              to="/newrecipe"
               className="btn-secondary text-lg px-8 py-3 flex items-center justify-center space-x-2"
             >
               <Plus className="h-5 w-5" />
@@ -96,7 +96,7 @@ const LandingPage: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Link
-              to="/new"
+              to="/newrecipe"
               className="group p-6 border border-gray-200 rounded-lg hover:border-sage-300 hover:shadow-md transition-all duration-200"
             >
               <div className="flex items-center space-x-4">

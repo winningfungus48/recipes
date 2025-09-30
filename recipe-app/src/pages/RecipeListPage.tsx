@@ -101,7 +101,7 @@ const RecipeListPage: React.FC = () => {
                 {state.recipes.length === 0 && (
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
-                      href="/new"
+                      href="/newrecipe"
                       className="btn-primary"
                     >
                       Add Your First Recipe

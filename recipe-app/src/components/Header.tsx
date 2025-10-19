@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ChefHat, Plus, Upload, BookOpen, Settings, FileText, Menu } from 'lucide-react'
-import MobileNavigationDrawer from './MobileNavigationDrawer'
+import NavigationDrawer from './NavigationDrawer'
 
 const Header: React.FC = () => {
   const location = useLocation()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isNavigationDrawerOpen, setIsNavigationDrawerOpen] = useState(false)
 
   const isActive = (path: string) => {
     return location.pathname === path
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
             </span>
           </Link>
 
-          {/* Navigation */}
+          {/* Primary Navigation - Desktop */}
           <nav className="hidden md:flex space-x-6">
             <Link
               to="/recipes"
@@ -62,24 +62,24 @@ const Header: React.FC = () => {
             </Link>
           </nav>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Universal Navigation Menu Button */}
+          <div className="flex items-center">
             <button
               type="button"
-              onClick={() => setIsMobileMenuOpen(true)}
+              onClick={() => setIsNavigationDrawerOpen(true)}
               className="text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-sage-500 p-2 -m-2"
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">Open navigation menu</span>
               <Menu className="h-6 w-6" />
             </button>
           </div>
         </div>
       </div>
       
-      {/* Mobile Navigation Drawer */}
-      <MobileNavigationDrawer
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
+      {/* Universal Navigation Drawer */}
+      <NavigationDrawer
+        isOpen={isNavigationDrawerOpen}
+        onClose={() => setIsNavigationDrawerOpen(false)}
       />
     </header>
   )

@@ -1,138 +1,191 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { ChefHat, Plus, Upload, BookOpen, Search } from 'lucide-react'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ChefHat, Plus, Upload, BookOpen, Search, Calendar, ShoppingCart } from 'lucide-react'
 import Header from '../components/Header'
 
 const LandingPage: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      navigate(`/recipes?search=${encodeURIComponent(searchQuery.trim())}`)
+    }
+  }
+
+  const handlePopularSearch = (query: string) => {
+    navigate(`/recipes?search=${encodeURIComponent(query)}`)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream-50 to-sage-50">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Compact Banner Header */}
         <div className="text-center mb-16">
           <div className="flex justify-center mb-6">
-            <div className="p-4 bg-white rounded-full shadow-lg">
-              <ChefHat className="h-16 w-16 text-sage-600" />
+            <div className="p-3 bg-white rounded-full shadow-sm">
+              <ChefHat className="h-8 w-8 text-sage-600" />
             </div>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-display font-bold text-gray-900 mb-6">
-            Your Personal
-            <span className="text-sage-600"> Recipe Collection</span>
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+            Your Recipe Dashboard
           </h1>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Organize, discover, and enjoy your favorite recipes in one beautiful place. 
-            Create, import, and manage your culinary creations with ease.
+          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+            Organize, create, and plan your meals all in one place.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/recipes"
-              className="btn-primary text-lg px-8 py-3 flex items-center justify-center space-x-2"
-            >
-              <BookOpen className="h-5 w-5" />
-              <span>Browse Recipes</span>
-            </Link>
-            
-            <Link
-              to="/newrecipe"
-              className="btn-secondary text-lg px-8 py-3 flex items-center justify-center space-x-2"
-            >
-              <Plus className="h-5 w-5" />
-              <span>Add Recipe</span>
-            </Link>
+        </div>
+
+        {/* Search Section */}
+        <div className="mb-12">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">Find Your Perfect Recipe</h2>
+              <p className="text-gray-600">Search through your collection or discover new favorites</p>
+            </div>
+            <form onSubmit={handleSearch} className="relative">
+              <input 
+                type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search recipes, ingredients, or cuisines…" 
+                className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-sage-500 focus:ring-4 focus:ring-sage-100 transition-all duration-200 shadow-sm hover:shadow-md bg-white"
+              />
+              <button 
+                type="submit"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-sage-600 hover:bg-sage-700 text-white p-3 rounded-xl transition-colors duration-200 shadow-sm hover:shadow-md"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+            </form>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <span className="text-sm text-gray-500">Popular searches:</span>
+              <button 
+                onClick={() => handlePopularSearch('pasta')}
+                className="px-3 py-1 bg-sage-50 hover:bg-sage-100 text-sage-700 rounded-full text-sm transition-colors duration-200"
+              >
+                Pasta
+              </button>
+              <button 
+                onClick={() => handlePopularSearch('chicken')}
+                className="px-3 py-1 bg-sage-50 hover:bg-sage-100 text-sage-700 rounded-full text-sm transition-colors duration-200"
+              >
+                Chicken
+              </button>
+              <button 
+                onClick={() => handlePopularSearch('dessert')}
+                className="px-3 py-1 bg-sage-50 hover:bg-sage-100 text-sage-700 rounded-full text-sm transition-colors duration-200"
+              >
+                Dessert
+              </button>
+              <button 
+                onClick={() => handlePopularSearch('quick')}
+                className="px-3 py-1 bg-sage-50 hover:bg-sage-100 text-sage-700 rounded-full text-sm transition-colors duration-200"
+              >
+                Quick
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="text-center">
-            <div className="bg-sage-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <Plus className="h-8 w-8 text-sage-600" />
+        {/* Primary Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
+          <Link
+            to="/recipes"
+            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-sage-300 transition-all duration-200 group"
+          >
+            <div className="flex items-center space-x-4">
+              <div className="bg-sage-100 group-hover:bg-sage-200 rounded-lg p-3 transition-colors">
+                <BookOpen className="h-6 w-6 text-sage-600" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-sage-700">Browse Recipes</h3>
+                <p className="text-sm text-gray-600">View your recipe collection</p>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Create Recipes
-            </h3>
-            <p className="text-gray-600">
-              Manually add your favorite recipes with detailed ingredients, 
-              instructions, and personal notes.
-            </p>
-          </div>
+          </Link>
           
-          <div className="text-center">
-            <div className="bg-wood-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <Upload className="h-8 w-8 text-wood-600" />
+          <Link
+            to="/newrecipe"
+            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-sage-300 transition-all duration-200 group"
+          >
+            <div className="flex items-center space-x-4">
+              <div className="bg-wood-100 group-hover:bg-wood-200 rounded-lg p-3 transition-colors">
+                <Plus className="h-6 w-6 text-wood-600" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-sage-700">Add Recipe</h3>
+                <p className="text-sm text-gray-600">Create a new recipe</p>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Import from Web
-            </h3>
-            <p className="text-gray-600">
-              Import recipes from any website with our smart scraper. 
-              Edit and customize before saving.
-            </p>
-          </div>
-          
-          <div className="text-center">
-            <div className="bg-yellow-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <Search className="h-8 w-8 text-yellow-600" />
-            </div>
-            <h3 className="text-xl font-semibent text-gray-900 mb-2">
-              Smart Search
-            </h3>
-            <p className="text-gray-600">
-              Find recipes quickly with powerful search, filters, 
-              and tags. Rate and organize your collection.
-            </p>
-          </div>
+          </Link>
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-          <h2 className="text-2xl font-semibold text-gray-900 text-center mb-8">
-            Get Started
-          </h2>
+        {/* Secondary Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+          <Link
+            to="/import"
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md hover:border-sage-300 transition-all duration-200 group"
+          >
+            <div className="flex items-center space-x-3">
+              <div className="bg-sage-50 group-hover:bg-sage-100 rounded-md p-2 transition-colors">
+                <Upload className="h-5 w-5 text-sage-600" />
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900 group-hover:text-sage-700">Import from Web</h4>
+                <p className="text-sm text-gray-600">Import recipes from URLs</p>
+              </div>
+            </div>
+          </Link>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link
-              to="/newrecipe"
-              className="group p-6 border border-gray-200 rounded-lg hover:border-sage-300 hover:shadow-md transition-all duration-200"
-            >
-              <div className="flex items-center space-x-4">
-                <div className="bg-sage-100 group-hover:bg-sage-200 rounded-lg p-3 transition-colors">
-                  <Plus className="h-6 w-6 text-sage-600" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-sage-700">
-                    Add Your First Recipe
-                  </h3>
-                  <p className="text-gray-600">
-                    Start building your collection with a new recipe
-                  </p>
-                </div>
+          <Link
+            to="/cookbooks"
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md hover:border-sage-300 transition-all duration-200 group"
+          >
+            <div className="flex items-center space-x-3">
+              <div className="bg-sage-50 group-hover:bg-sage-100 rounded-md p-2 transition-colors">
+                <BookOpen className="h-5 w-5 text-sage-600" />
               </div>
-            </Link>
-            
-            <Link
-              to="/import"
-              className="group p-6 border border-gray-200 rounded-lg hover:border-sage-300 hover:shadow-md transition-all duration-200"
-            >
-              <div className="flex items-center space-x-4">
-                <div className="bg-wood-100 group-hover:bg-wood-200 rounded-lg p-3 transition-colors">
-                  <Upload className="h-6 w-6 text-wood-600" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-sage-700">
-                    Import from Web
-                  </h3>
-                  <p className="text-gray-600">
-                    Bring in recipes from your favorite websites
-                  </p>
-                </div>
+              <div>
+                <h4 className="font-medium text-gray-900 group-hover:text-sage-700">Cookbooks</h4>
+                <p className="text-sm text-gray-600">Organize recipe collections</p>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
+          
+          <Link
+            to="/meal-plans"
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md hover:border-sage-300 transition-all duration-200 group"
+          >
+            <div className="flex items-center space-x-3">
+              <div className="bg-sage-50 group-hover:bg-sage-100 rounded-md p-2 transition-colors">
+                <Calendar className="h-5 w-5 text-sage-600" />
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900 group-hover:text-sage-700">Meal Plans</h4>
+                <p className="text-sm text-gray-600">Plan your weekly meals</p>
+              </div>
+            </div>
+          </Link>
+          
+          <Link
+            to="/shopping-list"
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md hover:border-sage-300 transition-all duration-200 group"
+          >
+            <div className="flex items-center space-x-3">
+              <div className="bg-sage-50 group-hover:bg-sage-100 rounded-md p-2 transition-colors">
+                <ShoppingCart className="h-5 w-5 text-sage-600" />
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900 group-hover:text-sage-700">Shopping List</h4>
+                <p className="text-sm text-gray-600">Generate shopping lists</p>
+              </div>
+            </div>
+          </Link>
         </div>
       </main>
     </div>

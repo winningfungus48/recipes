@@ -9,6 +9,12 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:seed": "node -e \"import('./src/utils/demoData.js').then(m => m.quickSeed())\"",
+    "test:all": "node scripts/run-tests.js",
     "import:recipes": "node scripts/import-recipes.js",
     "clean:port": "npx kill-port 3000 || echo 'Port 3000 is free'",
     "dev:restart": "npm run clean:port && npm run dev"
@@ -20,18 +26,24 @@
     "react-router-dom": "^6.30.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.7.0",
+    "@vitest/ui": "^1.0.4",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "jsdom": "^23.0.1",
     "kill-port": "^2.0.1",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
-    "vite": "^5.4.20"
+    "vite": "^5.4.20",
+    "vitest": "^1.0.4"
   }
 }

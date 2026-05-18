@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List - Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #87a96b 0%, #6b8e5a 100%);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #6b8e5a;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        /* Shopping List Section */
+        .shopping-list-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .shopping-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .shopping-list-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .shopping-list-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Search and Filters */
+        .search-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #87a96b;
+            box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.1);
+        }
+
+        .filter-select {
+            padding: 10px 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        /* Category Profile Selector */
+        .category-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .category-profile label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .category-select {
+            padding: 8px 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        /* Shopping List Items */
+        .category-section {
+            margin-bottom: 32px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #87a96b;
+        }
+
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .category-icon.produce { background: #4ecdc4; color: white; }
+        .category-icon.dairy { background: #ffd700; color: #8b6914; }
+        .category-icon.meat { background: #ff6b6b; color: white; }
+        .category-icon.pantry { background: #a8e6cf; color: #2d5016; }
+        .category-icon.frozen { background: #87a96b; color: white; }
+        .category-icon.custom { background: #9b59b6; color: white; }
+
+        .category-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .category-count {
+            margin-left: auto;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .shopping-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .shopping-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .shopping-item:hover {
+            border-color: #87a96b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .shopping-item.checked {
+            background: #f8f9fa;
+            opacity: 0.7;
+        }
+
+        .shopping-item.checked .item-label {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .item-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .item-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .item-label {
+            font-weight: 500;
+            color: #333;
+            flex: 1;
+        }
+
+        .item-quantity {
+            background: #e9ecef;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .shopping-item:hover .item-actions {
+            opacity: 1;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            padding: 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .btn-icon:hover {
+            background: #f8f9fa;
+            color: #333;
+            transform: scale(1.1);
+        }
+
+        /* Add Item Section */
+        .add-item-section {
+            margin-top: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+        }
+
+        .add-item-form {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .add-item-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .add-item-quantity {
+            width: 80px;
+            padding: 10px 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .add-item-category {
+            padding: 10px 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background: white;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: #333;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #87a96b;
+        }
+
+        /* Category Profiles */
+        .category-profile-item {
+            padding: 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-profile-item:hover {
+            border-color: #87a96b;
+            background: rgba(135, 169, 107, 0.05);
+        }
+
+        .category-profile-item.active {
+            border-color: #87a96b;
+            background: rgba(135, 169, 107, 0.1);
+        }
+
+        .profile-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .profile-buckets {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Custom Categories */
+        .custom-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .custom-category-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        .category-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-icon-small {
+            font-size: 0.9rem;
+        }
+
+        .category-name-small {
+            font-size: 0.9rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .category-actions {
+            display: flex;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .custom-category-item:hover .category-actions {
+            opacity: 1;
+        }
+
+        .btn-icon-small {
+            background: none;
+            border: none;
+            padding: 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .btn-icon-small:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .search-filters {
+                flex-direction: column;
+            }
+
+            .add-item-form {
+                flex-direction: column;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header-actions,
+            .sidebar,
+            .item-actions,
+            .add-item-section {
+                display: none !important;
+            }
+
+            .shopping-list-section {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            .shopping-item {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>
+                🛒 Shopping List
+                <span style="font-size: 0.8rem; font-weight: 400; opacity: 0.9;">Generated from Meal Plans</span>
+            </h1>
+            <div class="header-actions">
+                <button class="btn btn-primary">
+                    📝 Edit Meal Plans
+                </button>
+                <button class="btn btn-secondary">
+                    📄 Print List
+                </button>
+                <button class="btn btn-secondary">
+                    📋 Copy to Clipboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Main Shopping List -->
+            <div class="shopping-list-section">
+                <div class="shopping-list-header">
+                    <h2 class="shopping-list-title">Week of January 15th Shopping List</h2>
+                    <div class="shopping-list-actions">
+                        <button class="btn btn-secondary btn-small">🔄 Regenerate</button>
+                        <button class="btn btn-secondary btn-small">💾 Save List</button>
+                    </div>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="search-filters">
+                    <input type="text" class="search-input" placeholder="Search items...">
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                        <option>Produce</option>
+                        <option>Dairy</option>
+                        <option>Meat</option>
+                        <option>Pantry</option>
+                        <option>Frozen</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Show All</option>
+                        <option>Unchecked Only</option>
+                        <option>Checked Only</option>
+                    </select>
+                </div>
+
+                <!-- Category Profile Selector -->
+                <div class="category-profile">
+                    <label>Category Profile:</label>
+                    <select class="category-select" id="categoryProfileSelect">
+                        <option value="default" selected>Default Store Layout</option>
+                        <option value="organic">Organic Store</option>
+                        <option value="warehouse">Warehouse Store</option>
+                        <option value="custom">Custom Profile</option>
+                    </select>
+                    <button class="btn btn-secondary btn-small" id="manageCategoriesBtn">⚙️ Manage Categories</button>
+                </div>
+
+                <!-- Shopping List Items by Category -->
+                
+                <!-- Produce Section -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon produce">🥬</div>
+                        <div class="category-name">Produce</div>
+                        <div class="category-count">5 items</div>
+                    </div>
+                    <div class="shopping-items">
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Bananas</div>
+                                <div class="item-quantity">6 pieces</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Apples</div>
+                                <div class="item-quantity">4 pieces</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item checked">
+                            <input type="checkbox" class="item-checkbox" checked>
+                            <div class="item-content">
+                                <div class="item-label">Spinach</div>
+                                <div class="item-quantity">1 bag</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Tomatoes</div>
+                                <div class="item-quantity">2 lbs</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Avocados</div>
+                                <div class="item-quantity">3 pieces</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dairy Section -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon dairy">🥛</div>
+                        <div class="category-name">Dairy</div>
+                        <div class="category-count">4 items</div>
+                    </div>
+                    <div class="shopping-items">
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Milk</div>
+                                <div class="item-quantity">1 gallon</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item checked">
+                            <input type="checkbox" class="item-checkbox" checked>
+                            <div class="item-content">
+                                <div class="item-label">Greek Yogurt</div>
+                                <div class="item-quantity">2 containers</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Cheese (Parmesan)</div>
+                                <div class="item-quantity">1 block</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Butter</div>
+                                <div class="item-quantity">1 lb</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meat Section -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon meat">🥩</div>
+                        <div class="category-name">Meat</div>
+                        <div class="category-count">2 items</div>
+                    </div>
+                    <div class="shopping-items">
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Chicken Breast</div>
+                                <div class="item-quantity">2 lbs</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Salmon Fillet</div>
+                                <div class="item-quantity">1.5 lbs</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pantry Section -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon pantry">🥫</div>
+                        <div class="category-name">Pantry</div>
+                        <div class="category-count">6 items</div>
+                    </div>
+                    <div class="shopping-items">
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">All-Purpose Flour</div>
+                                <div class="item-quantity">5 lbs</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Pasta (Spaghetti)</div>
+                                <div class="item-quantity">1 box</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Olive Oil</div>
+                                <div class="item-quantity">1 bottle</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Quinoa</div>
+                                <div class="item-quantity">1 bag</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Mixed Nuts</div>
+                                <div class="item-quantity">1 bag</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Bread</div>
+                                <div class="item-quantity">1 loaf</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Categories Section -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon custom">🏷️</div>
+                        <div class="category-name">Health & Beauty</div>
+                        <div class="category-count">2 items</div>
+                    </div>
+                    <div class="shopping-items">
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Shampoo</div>
+                                <div class="item-quantity">1 bottle</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="shopping-item">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-content">
+                                <div class="item-label">Toothpaste</div>
+                                <div class="item-quantity">1 tube</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-icon">✏️</button>
+                                <button class="btn-icon">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Custom Item -->
+                <div class="add-item-section">
+                    <div class="add-item-form">
+                        <input type="text" class="add-item-input" placeholder="Add custom item...">
+                        <input type="text" class="add-item-quantity" placeholder="Qty">
+                        <select class="add-item-category" id="addItemCategory">
+                            <option>Produce</option>
+                            <option>Dairy</option>
+                            <option>Meat</option>
+                            <option>Pantry</option>
+                            <option>Frozen</option>
+                            <option>Health & Beauty</option>
+                            <option>+ Create New Category</option>
+                        </select>
+                        <button class="btn btn-primary btn-small">Add Item</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>📊 List Summary</h3>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Items</span>
+                        <span class="stat-value">17</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Checked Off</span>
+                        <span class="stat-value">3</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Remaining</span>
+                        <span class="stat-value">14</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Categories</span>
+                        <span class="stat-value">4</span>
+                    </div>
+                </div>
+
+                <h3>🏪 Category Profiles</h3>
+                <div class="category-profile-item active">
+                    <div class="profile-name">Default Store Layout</div>
+                    <div class="profile-buckets">Produce, Dairy, Meat, Pantry, Frozen</div>
+                </div>
+                <div class="category-profile-item">
+                    <div class="profile-name">Organic Store</div>
+                    <div class="profile-buckets">Organic Produce, Dairy, Meat, Bulk, Frozen</div>
+                </div>
+                <div class="category-profile-item">
+                    <div class="profile-name">Warehouse Store</div>
+                    <div class="profile-buckets">Produce, Dairy, Meat, Pantry, Frozen, Bulk</div>
+                </div>
+                <div class="category-profile-item">
+                    <div class="profile-name">My Custom Profile</div>
+                    <div class="profile-buckets">Produce, Dairy, Meat, Pantry, Health & Beauty</div>
+                </div>
+
+                <h3 style="margin-top: 24px;">🎨 Custom Categories</h3>
+                <div class="custom-categories">
+                    <div class="custom-category-item">
+                        <div class="category-info">
+                            <span class="category-icon-small">🏷️</span>
+                            <span class="category-name-small">Health & Beauty</span>
+                        </div>
+                        <div class="category-actions">
+                            <button class="btn-icon-small">✏️</button>
+                            <button class="btn-icon-small">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="custom-category-item">
+                        <div class="category-info">
+                            <span class="category-icon-small">🧴</span>
+                            <span class="category-name-small">Cleaning Supplies</span>
+                        </div>
+                        <div class="category-actions">
+                            <button class="btn-icon-small">✏️</button>
+                            <button class="btn-icon-small">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-small" style="width: 100%; margin-top: 12px;">+ Add New Category</button>
+
+                <h3 style="margin-top: 24px;">💡 Tips</h3>
+                <div style="color: #666; font-size: 0.9rem; line-height: 1.5;">
+                    <p>• Check items off as you shop</p>
+                    <p>• Use category profiles for different stores</p>
+                    <p>• Add custom items for specific needs</p>
+                    <p>• Print or copy list for offline shopping</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Management Modal -->
+    <div class="modal-overlay" style="display: none;" id="categoryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Manage Categories</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Add New Category</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" placeholder="Category name..." style="flex: 1;">
+                    <select style="width: 120px;">
+                        <option>🏷️</option>
+                        <option>🧴</option>
+                        <option>🧼</option>
+                        <option>💊</option>
+                        <option>🧻</option>
+                        <option>🔋</option>
+                        <option>📱</option>
+                        <option>👕</option>
+                    </select>
+                    <button class="btn btn-primary btn-small">Add</button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Existing Categories</label>
+                <div style="max-height: 200px; overflow-y: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #eee;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span>🏷️</span>
+                            <span>Health & Beauty</span>
+                        </div>
+                        <div style="display: flex; gap: 4px;">
+                            <button class="btn-icon-small">✏️</button>
+                            <button class="btn-icon-small">🗑️</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #eee;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span>🧴</span>
+                            <span>Cleaning Supplies</span>
+                        </div>
+                        <div style="display: flex; gap: 4px;">
+                            <button class="btn-icon-small">✏️</button>
+                            <button class="btn-icon-small">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-cancel">Cancel</button>
+                <button class="btn btn-save">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple demo interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Checkbox functionality
+            document.querySelectorAll('.item-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const item = this.closest('.shopping-item');
+                    if (this.checked) {
+                        item.classList.add('checked');
+                    } else {
+                        item.classList.remove('checked');
+                    }
+                    updateStats();
+                });
+            });
+
+            // Category profile selection
+            document.querySelectorAll('.category-profile-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.category-profile-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Manage categories button
+            document.getElementById('manageCategoriesBtn').addEventListener('click', function() {
+                document.getElementById('categoryModal').style.display = 'flex';
+            });
+
+            // Close modal
+            document.querySelector('.close-btn').addEventListener('click', function() {
+                document.getElementById('categoryModal').style.display = 'none';
+            });
+
+            // Add item category selection
+            document.getElementById('addItemCategory').addEventListener('change', function() {
+                if (this.value === '+ Create New Category') {
+                    document.getElementById('categoryModal').style.display = 'flex';
+                    this.value = 'Health & Beauty'; // Reset to default
+                }
+            });
+
+            // Custom category management
+            document.querySelectorAll('.custom-category-item .btn-icon-small').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.textContent === '✏️') {
+                        console.log('Edit category clicked');
+                    } else if (this.textContent === '🗑️') {
+                        console.log('Delete category clicked');
+                    }
+                });
+            });
+
+            // Update stats
+            function updateStats() {
+                const totalItems = document.querySelectorAll('.shopping-item').length;
+                const checkedItems = document.querySelectorAll('.shopping-item.checked').length;
+                const remainingItems = totalItems - checkedItems;
+
+                document.querySelector('.stat-value').textContent = totalItems;
+                document.querySelectorAll('.stat-value')[1].textContent = checkedItems;
+                document.querySelectorAll('.stat-value')[2].textContent = remainingItems;
+            }
+
+            // Add custom item
+            document.querySelector('.add-item-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Adding custom item...');
+            });
+        });
+    </script>
+</body>
+</html>

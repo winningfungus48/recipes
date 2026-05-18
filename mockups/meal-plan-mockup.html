@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Plan Interface Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #87a96b 0%, #6b8e5a 100%);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #6b8e5a;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .nav-tab.active {
+            background: #87a96b;
+            color: white;
+            box-shadow: 0 2px 8px rgba(135, 169, 107, 0.3);
+        }
+
+        .nav-tab:not(.active) {
+            color: #666;
+        }
+
+        .nav-tab:not(.active):hover {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        /* Calendar View */
+        .calendar-view {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .calendar-nav button {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calendar-nav button:hover {
+            background: #e9ecef;
+        }
+
+        .current-week {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .day-header {
+            background: #f8f9fa;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .day-cell {
+            background: white;
+            padding: 12px 8px;
+            min-height: 120px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .day-number {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .meal-slot {
+            margin-bottom: 8px;
+            padding: 6px 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #87a96b;
+            font-size: 0.85rem;
+        }
+
+        .meal-slot.breakfast { border-left-color: #ffd700; }
+        .meal-slot.lunch { border-left-color: #ff6b6b; }
+        .meal-slot.dinner { border-left-color: #4ecdc4; }
+        .meal-slot.snack { border-left-color: #a8e6cf; }
+
+        .meal-title {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .meal-servings {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .add-meal-btn {
+            width: 100%;
+            padding: 8px;
+            background: transparent;
+            border: 1px dashed #ccc;
+            border-radius: 6px;
+            color: #999;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .add-meal-btn:hover {
+            border-color: #87a96b;
+            color: #87a96b;
+            background: rgba(135, 169, 107, 0.05);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .sidebar h3 {
+            color: #333;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .template-item {
+            padding: 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .template-item:hover {
+            border-color: #87a96b;
+            background: rgba(135, 169, 107, 0.05);
+        }
+
+        .template-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .template-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #87a96b;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .week-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .day-cell {
+                min-height: 80px;
+            }
+
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Modal Styles (for demonstration) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal h2 {
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #87a96b;
+            box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .btn-cancel {
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #e9ecef;
+        }
+
+        .btn-save {
+            background: #87a96b;
+            color: white;
+            border: 1px solid #87a96b;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* List View Styles */
+        .list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .day-list-item {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e9ecef;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .day-header-list {
+            background: linear-gradient(135deg, #87a96b 0%, #6b8e5a 100%);
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: none;
+        }
+
+        .day-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .day-name {
+            font-weight: 700;
+            color: white;
+            font-size: 1.4rem;
+            letter-spacing: -0.02em;
+        }
+
+        .day-date {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .add-meal-btn-small {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .add-meal-btn-small:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        .meals-list {
+            padding: 0;
+        }
+
+        .meal-category {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .meal-category:last-child {
+            border-bottom: none;
+        }
+
+        .meal-category-header {
+            background: #f8f9fa;
+            padding: 12px 24px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meal-type-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .meal-type-icon.breakfast {
+            background: #ffd700;
+            color: #8b6914;
+        }
+
+        .meal-type-icon.lunch {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .meal-type-icon.dinner {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .meal-type-icon.snack {
+            background: #a8e6cf;
+            color: #2d5016;
+        }
+
+        .meal-type-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+
+        .meal-list-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 24px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .meal-list-item:hover {
+            background: rgba(135, 169, 107, 0.04);
+        }
+
+        .meal-list-item.breakfast {
+            border-left: 4px solid #ffd700;
+        }
+
+        .meal-list-item.lunch {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .meal-list-item.dinner {
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .meal-list-item.snack {
+            border-left: 4px solid #a8e6cf;
+        }
+
+
+        .meal-details {
+            flex: 1;
+        }
+
+        .meal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .meal-meta {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .meal-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: 20px;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .btn-icon:hover {
+            background: #f8f9fa;
+            color: #333;
+            transform: scale(1.1);
+        }
+
+        /* Empty meal category styling */
+        .empty-meal-category {
+            padding: 20px 24px;
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .empty-meal-category:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>
+                🍽️ Meal Planning
+                <span style="font-size: 0.8rem; font-weight: 400; opacity: 0.9;">Week of Jan 15-21, 2025</span>
+            </h1>
+            <div class="header-actions">
+                <button class="btn btn-primary">
+                    📅 New Plan
+                </button>
+                <button class="btn btn-secondary">
+                    🛒 Generate Shopping List
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Meals Planned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Recipes Used</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Custom Meals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Skip Days</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab">
+                📅 Calendar View
+            </button>
+            <button class="nav-tab active">
+                📋 List View
+            </button>
+            <button class="nav-tab">
+                📝 Templates
+            </button>
+            <button class="nav-tab">
+                ⭐ Favorites
+            </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+            <!-- Main List View -->
+            <div class="calendar-view">
+                <div class="calendar-header">
+                    <div class="calendar-nav">
+                        <button>‹</button>
+                        <span class="current-week">January 15-21, 2025</span>
+                        <button>›</button>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">
+                            Save as Template
+                        </button>
+                        <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">
+                            ⭐ Favorite
+                        </button>
+                    </div>
+                </div>
+
+                <!-- List View -->
+                <div class="list-view">
+                    <!-- Monday -->
+                    <div class="day-list-item">
+                        <div class="day-header-list">
+                            <div class="day-info">
+                                <span class="day-name">Monday</span>
+                                <span class="day-date">Jan 15</span>
+                            </div>
+                            <button class="add-meal-btn-small">+ Add Meal</button>
+                        </div>
+                        <div class="meals-list">
+                            <!-- Breakfast Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon breakfast">B</div>
+                                    <div class="meal-type-label">Breakfast</div>
+                                </div>
+                                <div class="meal-list-item breakfast">
+                                    <div class="meal-details">
+                                        <div class="meal-title">Pancakes</div>
+                                        <div class="meal-meta">2 servings • 25 min cook time</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lunch Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon lunch">L</div>
+                                    <div class="meal-type-label">Lunch</div>
+                                </div>
+                                <div class="meal-list-item lunch">
+                                    <div class="meal-details">
+                                        <div class="meal-title">Caesar Salad</div>
+                                        <div class="meal-meta">1 serving • 15 min prep time</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dinner Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon dinner">D</div>
+                                    <div class="meal-type-label">Dinner</div>
+                                </div>
+                                <div class="meal-list-item dinner">
+                                    <div class="meal-details">
+                                        <div class="meal-title">Chicken Parmesan</div>
+                                        <div class="meal-meta">4 servings • 45 min cook time</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tuesday -->
+                    <div class="day-list-item">
+                        <div class="day-header-list">
+                            <div class="day-info">
+                                <span class="day-name">Tuesday</span>
+                                <span class="day-date">Jan 16</span>
+                            </div>
+                            <button class="add-meal-btn-small">+ Add Meal</button>
+                        </div>
+                        <div class="meals-list">
+                            <!-- Breakfast Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon breakfast">B</div>
+                                    <div class="meal-type-label">Breakfast</div>
+                                </div>
+                                <div class="meal-list-item breakfast">
+                                    <div class="meal-details">
+                                        <div class="meal-title">Oatmeal</div>
+                                        <div class="meal-meta">1 serving • 10 min cook time</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Snack Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon snack">S</div>
+                                    <div class="meal-type-label">Snack</div>
+                                </div>
+                                <div class="meal-list-item snack">
+                                    <div class="meal-details">
+                                        <div class="meal-title">Apple & Nuts</div>
+                                        <div class="meal-meta">1 serving • No prep time</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wednesday -->
+                    <div class="day-list-item">
+                        <div class="day-header-list">
+                            <div class="day-info">
+                                <span class="day-name">Wednesday</span>
+                                <span class="day-date">Jan 17</span>
+                            </div>
+                            <button class="add-meal-btn-small">+ Add Meal</button>
+                        </div>
+                        <div class="meals-list">
+                            <div class="meal-list-item breakfast">
+                                <div class="meal-time">8:00 AM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Smoothie Bowl</div>
+                                    <div class="meal-meta">1 serving • 10 min prep time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="meal-list-item lunch">
+                                <div class="meal-time">1:00 PM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Turkey Sandwich</div>
+                                    <div class="meal-meta">1 serving • 5 min prep time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="meal-list-item dinner">
+                                <div class="meal-time">7:30 PM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Pasta Carbonara</div>
+                                    <div class="meal-meta">3 servings • 30 min cook time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thursday -->
+                    <div class="day-list-item">
+                        <div class="day-header-list">
+                            <div class="day-info">
+                                <span class="day-name">Thursday</span>
+                                <span class="day-date">Jan 18</span>
+                            </div>
+                            <button class="add-meal-btn-small">+ Add Meal</button>
+                        </div>
+                        <div class="meals-list">
+                            <div class="meal-list-item breakfast">
+                                <div class="meal-time">8:15 AM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Eggs & Toast</div>
+                                    <div class="meal-meta">1 serving • 15 min cook time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="meal-list-item snack">
+                                <div class="meal-time">4:00 PM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Greek Yogurt</div>
+                                    <div class="meal-meta">1 serving • No prep time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Friday -->
+                    <div class="day-list-item">
+                        <div class="day-header-list">
+                            <div class="day-info">
+                                <span class="day-name">Friday</span>
+                                <span class="day-date">Jan 19</span>
+                            </div>
+                            <button class="add-meal-btn-small">+ Add Meal</button>
+                        </div>
+                        <div class="meals-list">
+                            <div class="meal-list-item breakfast">
+                                <div class="meal-time">8:00 AM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Avocado Toast</div>
+                                    <div class="meal-meta">1 serving • 10 min prep time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="meal-list-item lunch">
+                                <div class="meal-time">12:00 PM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Quinoa Bowl</div>
+                                    <div class="meal-meta">1 serving • 20 min cook time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="meal-list-item dinner">
+                                <div class="meal-time">7:00 PM</div>
+                                <div class="meal-details">
+                                    <div class="meal-title">Grilled Salmon</div>
+                                    <div class="meal-meta">2 servings • 25 min cook time</div>
+                                </div>
+                                <div class="meal-actions">
+                                    <button class="btn-icon">✏️</button>
+                                    <button class="btn-icon">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weekend -->
+                    <div class="day-list-item">
+                        <div class="day-header-list">
+                            <div class="day-info">
+                                <span class="day-name">Weekend</span>
+                                <span class="day-date">Jan 20-21</span>
+                            </div>
+                            <button class="add-meal-btn-small">+ Add Meal</button>
+                        </div>
+                        <div class="meals-list">
+                            <!-- Breakfast Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon breakfast">B</div>
+                                    <div class="meal-type-label">Breakfast</div>
+                                </div>
+                                <div class="meal-list-item breakfast">
+                                    <div class="meal-details">
+                                        <div class="meal-title">French Toast</div>
+                                        <div class="meal-meta">2 servings • 20 min cook time</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lunch Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon lunch">L</div>
+                                    <div class="meal-type-label">Lunch</div>
+                                </div>
+                                <div class="meal-list-item lunch">
+                                    <div class="meal-details">
+                                        <div class="meal-title">Out to Eat</div>
+                                        <div class="meal-meta">Custom meal</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dinner Section -->
+                            <div class="meal-category">
+                                <div class="meal-category-header">
+                                    <div class="meal-type-icon dinner">D</div>
+                                    <div class="meal-type-label">Dinner</div>
+                                </div>
+                                <div class="meal-list-item dinner">
+                                    <div class="meal-details">
+                                        <div class="meal-title">Pizza Night</div>
+                                        <div class="meal-meta">Custom meal</div>
+                                    </div>
+                                    <div class="meal-actions">
+                                        <button class="btn-icon">✏️</button>
+                                        <button class="btn-icon">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>📝 Quick Templates</h3>
+                <div class="template-item">
+                    <div class="template-name">Weekly Meal Prep</div>
+                    <div class="template-desc">Batch cooking focused plan</div>
+                </div>
+                <div class="template-item">
+                    <div class="template-name">Family Dinners</div>
+                    <div class="template-desc">Kid-friendly meal plan</div>
+                </div>
+                <div class="template-item">
+                    <div class="template-name">Healthy Week</div>
+                    <div class="template-desc">Balanced nutrition focus</div>
+                </div>
+
+                <h3 style="margin-top: 24px;">🏷️ Tags</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
+                    <span style="background: #e9ecef; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; color: #666;">meal-prep</span>
+                    <span style="background: #e9ecef; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; color: #666;">healthy</span>
+                    <span style="background: #e9ecef; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; color: #666;">family</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Meal Modal (Hidden by default, shown for demonstration) -->
+    <div class="modal-overlay" style="display: none;" id="addMealModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Meal to Plan</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" value="2025-01-15">
+            </div>
+            
+            <div class="form-group">
+                <label>Meal Type</label>
+                <select>
+                    <option>Breakfast</option>
+                    <option>Lunch</option>
+                    <option>Dinner</option>
+                    <option>Snack</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Recipe or Custom Meal</label>
+                <select>
+                    <option>Choose from recipes...</option>
+                    <option>Pancakes</option>
+                    <option>Caesar Salad</option>
+                    <option>Chicken Parmesan</option>
+                    <option>Custom meal (free text)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Servings</label>
+                <input type="number" value="1" min="1">
+            </div>
+            
+            <div class="form-group">
+                <label>Notes (optional)</label>
+                <input type="text" placeholder="Any special instructions...">
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-cancel">Cancel</button>
+                <button class="btn btn-save">Add Meal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple demo interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Add meal button clicks
+            document.querySelectorAll('.add-meal-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // In real implementation, this would open the modal
+                    console.log('Add meal clicked for day:', this.closest('.day-cell').querySelector('.day-number').textContent);
+                });
+            });
+
+            // Template clicks
+            document.querySelectorAll('.template-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    console.log('Template clicked:', this.querySelector('.template-name').textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

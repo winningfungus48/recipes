@@ -16,6 +16,7 @@
     "test:seed": "node -e \"import('./src/utils/demoData.js').then(m => m.quickSeed())\"",
     "test:all": "node scripts/run-tests.js",
     "import:recipes": "node scripts/import-recipes.js",
+    "import:md": "npx tsx scripts/import-initial-md.ts",
     "clean:port": "npx kill-port 3000 || echo 'Port 3000 is free'",
     "dev:restart": "npm run clean:port && npm run dev"
   },

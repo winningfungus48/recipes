@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Clock, Star } from 'lucide-react'
 import type { Recipe } from '../../types'
+import { getDisplayTags } from '../../utils/recipeDisplay'
 import Badge from '../ui/Badge'
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 
 export default function RecipeCard({ recipe }: Props) {
   const img = recipe.image
+  const displayTags = getDisplayTags(recipe)
   return (
     <Link
       to={`/recipes/${recipe.id}`}
@@ -44,9 +46,9 @@ export default function RecipeCard({ recipe }: Props) {
             </span>
           ) : null}
         </div>
-        {recipe.tags.length > 0 ? (
+        {displayTags.length > 0 ? (
           <div className="flex flex-wrap gap-1">
-            {recipe.tags.slice(0, 4).map((t) => (
+            {displayTags.slice(0, 4).map((t) => (
               <span key={t} className="rounded-full bg-[#FAF8F5] px-2 py-0.5 text-[11px] text-gray-600">
                 {t}
               </span>

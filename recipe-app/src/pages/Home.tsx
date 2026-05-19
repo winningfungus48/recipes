@@ -8,40 +8,27 @@ import Button from '../components/ui/Button'
 import Modal from '../components/ui/Modal'
 import ImportModal from '../components/import/ImportModal'
 
-function parseCookMinutes(cookTime?: string): number | null {
-  if (!cookTime) return null
-  const m = cookTime.match(/(\d+)\s*(min|minutes|mins)/i)
-  if (m) return parseInt(m[1], 10)
-  const h = cookTime.match(/(\d+)\s*(h|hr|hour)/i)
-  if (h) return parseInt(h[1], 10) * 60
-  return null
-}
-
 export default function Home() {
   const { recipes } = useRecipes()
   const navigate = useNavigate()
   const [q, setQ] = useState('')
-  const [filter, setFilter] = useState<'all' | 'quick' | 'easy' | 'medium' | 'hard'>('all')
   const [tagFilter, setTagFilter] = useState<string | null>(null)
   const [fabOpen, setFabOpen] = useState(false)
   const [importOpen, setImportOpen] = useState(false)
 
   const allTags = useMemo(() => {
     const s = new Set<string>()
-    recipes.forEach((r) => r.tags.forEach((t) => s.add(t)))
+    recipes.forEach((r) =>
+      r.tags.forEach((t) => {
+        if (t.toLowerCase() !== 'imported') s.add(t)
+      })
+    )
     return Array.from(s).sort()
   }, [recipes])
 
   const filtered = useMemo(() => {
     const search = q.trim().toLowerCase()
     return recipes.filter((r) => {
-      if (filter === 'quick') {
-        const mins = parseCookMinutes(r.cookTime)
-        if (mins === null || mins >= 30) return false
-      }
-      if (filter === 'easy' && r.difficulty !== 'Easy') return false
-      if (filter === 'medium' && r.difficulty !== 'Medium') return false
-      if (filter === 'hard' && r.difficulty !== 'Hard') return false
       if (tagFilter && !r.tags.includes(tagFilter)) return false
       if (!search) return true
       const blob = [
@@ -57,14 +44,13 @@ export default function Home() {
         .toLowerCase()
       return blob.includes(search)
     })
-  }, [recipes, q, filter, tagFilter])
+  }, [recipes, q, tagFilter])
 
   return (
     <div className="mx-auto max-w-6xl">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-[#8B6F47] md:text-3xl">Recipes</h1>
-          <p className="text-sm text-gray-600">Search, filter, and open any saved recipe.</p>
         </div>
       </div>
 
@@ -79,48 +65,22 @@ export default function Home() {
         />
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-2">
-        {(
-          [
-            ['all', 'All'],
-            ['quick', 'Quick (<30 min)'],
-            ['easy', 'Easy'],
-            ['medium', 'Medium'],
-            ['hard', 'Hard'],
-          ] as const
-        ).map(([k, label]) => (
-          <button
-            key={k}
-            type="button"
-            onClick={() => {
-              setFilter(k)
-              setTagFilter(null)
-            }}
-            className={`min-h-[44px] rounded-full px-4 text-sm font-medium ${
-              filter === k && !tagFilter
-                ? 'bg-[#7C9A6E] text-white'
-                : 'bg-white text-[#8B6F47] ring-1 ring-[#8B6F47]/20'
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-        {allTags.map((t) => (
-          <button
-            key={t}
-            type="button"
-            onClick={() => {
-              setTagFilter(t === tagFilter ? null : t)
-              setFilter('all')
-            }}
-            className={`min-h-[44px] rounded-full px-4 text-sm font-medium ${
-              tagFilter === t ? 'bg-[#D47C2E] text-white' : 'bg-[#F0EBE3] text-[#8B6F47]'
-            }`}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
+      {allTags.length > 0 ? (
+        <div className="mb-6 flex flex-wrap gap-2">
+          {allTags.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTagFilter(t === tagFilter ? null : t)}
+              className={`min-h-[44px] rounded-full px-4 text-sm font-medium ${
+                tagFilter === t ? 'bg-[#D47C2E] text-white' : 'bg-[#F0EBE3] text-[#8B6F47]'
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {recipes.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-[#8B6F47]/30 bg-white/80 p-12 text-center">
